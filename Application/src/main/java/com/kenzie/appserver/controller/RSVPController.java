@@ -1,50 +1,52 @@
 package com.kenzie.appserver.controller;
 
-import com.kenzie.appserver.controller.model.ExampleCreateRequest;
-import com.kenzie.appserver.controller.model.ExampleResponse;
-import com.kenzie.appserver.service.ExampleService;
-import com.kenzie.appserver.service.model.Example;
+import com.kenzie.appserver.controller.model.RSVPCreateRequest;
+import com.kenzie.appserver.controller.model.RSVPResponse;
+import com.kenzie.appserver.service.RSVPService;
+import com.kenzie.appserver.service.model.RSVP;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-import static java.util.UUID.randomUUID;
 
 @RestController
 @RequestMapping("/rsvp")
 public class RSVPController {
 
-    private ExampleService exampleService;
+    private RSVPService rsvpService;
 
-    RSVPController(ExampleService exampleService) {
-        this.exampleService = exampleService;
+    RSVPController(RSVPService rsvpService) {
+        this.rsvpService = rsvpService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ExampleResponse> get(@PathVariable("id") String id) {
+    @GetMapping("/{eventId}")
+    public ResponseEntity<RSVPResponse> get(@PathVariable("eventId") String eventId) {
 
-        Example example = exampleService.findById(id);
-        if (example == null) {
+        RSVP rsvp = rsvpService.findByEventId(eventId);
+        if (rsvp == null) {
             return ResponseEntity.notFound().build();
         }
 
-        ExampleResponse exampleResponse = new ExampleResponse();
-        exampleResponse.setId(example.getId());
-        exampleResponse.setName(example.getName());
-        return ResponseEntity.ok(exampleResponse);
+        RSVPResponse rsvpResponse = new RSVPResponse();
+        rsvpResponse.setUserId(rsvp.getUserId());
+        rsvpResponse.setEventId(rsvp.getEventId());
+        rsvpResponse.setIsAttending(rsvp.getIsAttending());
+        return ResponseEntity.ok(rsvpResponse);
     }
 
     @PostMapping
-    public ResponseEntity<ExampleResponse> addNewConcert(@RequestBody ExampleCreateRequest exampleCreateRequest) {
-        Example example = new Example(randomUUID().toString(),
-                exampleCreateRequest.getName());
-        exampleService.addNewExample(example);
+    public ResponseEntity<RSVPResponse> addNewRSVP(@RequestBody RSVPCreateRequest rsvpCreateRequest) {
+        RSVP rsvp = new RSVP(rsvpCreateRequest.getUserId(),
+                rsvpCreateRequest.getEventId(),
+                rsvpCreateRequest.getIsAttending());
+        rsvpService.addNewRSVP(rsvp);
 
-        ExampleResponse exampleResponse = new ExampleResponse();
-        exampleResponse.setId(example.getId());
-        exampleResponse.setName(example.getName());
+        RSVPResponse rsvpResponse = new RSVPResponse();
+        rsvpResponse.setUserId(rsvp.getUserId());
+        rsvpResponse.setEventId(rsvp.getEventId());
+        rsvpResponse.setIsAttending(rsvp.getIsAttending());
 
-        return ResponseEntity.created(URI.create("/example/" + exampleResponse.getId())).body(exampleResponse);
+        return ResponseEntity.created(URI.create("/rsvp/" + rsvpResponse.getEventId())).body(rsvpResponse);
     }
 }

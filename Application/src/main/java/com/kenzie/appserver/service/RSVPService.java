@@ -1,32 +1,34 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.repositories.ExampleRepository;
-import com.kenzie.appserver.repositories.model.ExampleRecord;
-import com.kenzie.appserver.service.model.Example;
+import com.kenzie.appserver.repositories.RSVPRepository;
+import com.kenzie.appserver.repositories.model.RSVPRecord;
+import com.kenzie.appserver.service.model.RSVP;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RSVPService {
-    private ExampleRepository exampleRepository;
+    private RSVPRepository rsvpRepository;
 
-    public RSVPService(ExampleRepository exampleRepository) {
-        this.exampleRepository = exampleRepository;
+    public RSVPService(RSVPRepository rsvpRepository) {
+        this.rsvpRepository = rsvpRepository;
     }
 
-    public Example findById(String id) {
-        Example exampleFromBackend = exampleRepository
-                .findById(id)
-                .map(example -> new Example(example.getId(), example.getName()))
+    //TODO determine what the Hashkey look up is for RSVP records
+    public RSVP findByEventId(String eventId) {
+        RSVP rsvpFromBackend = rsvpRepository
+                .findById(eventId)
+                .map(rsvp -> new RSVP(rsvp.getUserId(), rsvp.getEventId(), rsvp.getIsAttending()))
                 .orElse(null);
 
-        return exampleFromBackend;
+        return rsvpFromBackend;
     }
 
-    public Example addNewExample(Example example) {
-        ExampleRecord exampleRecord = new ExampleRecord();
-        exampleRecord.setId(example.getId());
-        exampleRecord.setName(example.getName());
-        exampleRepository.save(exampleRecord);
-        return example;
+    public RSVP addNewRSVP(RSVP rsvp) {
+        RSVPRecord rsvpRecord = new RSVPRecord();
+        rsvpRecord.setUserId(rsvp.getUserId());
+        rsvpRecord.setEventId(rsvp.getEventId());
+        rsvpRecord.setIsAttending(rsvp.getIsAttending());
+        rsvpRepository.save(rsvpRecord);
+        return rsvp;
     }
 }

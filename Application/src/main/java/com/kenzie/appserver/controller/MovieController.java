@@ -1,9 +1,10 @@
 package com.kenzie.appserver.controller;
 
-import com.kenzie.appserver.controller.model.ExampleCreateRequest;
-import com.kenzie.appserver.controller.model.ExampleResponse;
-import com.kenzie.appserver.service.ExampleService;
-import com.kenzie.appserver.service.model.Example;
+
+import com.kenzie.appserver.controller.model.MovieCreateRequest;
+import com.kenzie.appserver.controller.model.MovieResponse;
+import com.kenzie.appserver.service.MovieService;
+import com.kenzie.appserver.service.model.Movie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,39 +13,42 @@ import java.net.URI;
 import static java.util.UUID.randomUUID;
 
 @RestController
-@RequestMapping("/example")
+@RequestMapping("/movie")
 public class MovieController {
 
-    private ExampleService exampleService;
+    private MovieService movieService;
 
-    MovieController(ExampleService exampleService) {
-        this.exampleService = exampleService;
+    MovieController(MovieService movieService) {
+        this.movieService = movieService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ExampleResponse> get(@PathVariable("id") String id) {
+    @GetMapping("/{movieId}")
+    public ResponseEntity<MovieResponse> getMovieById(@PathVariable("movieId") String movieId) {
 
-        Example example = exampleService.findById(id);
-        if (example == null) {
+        Movie movie = movieService.findById(movieId);
+        if (movie == null) {
             return ResponseEntity.notFound().build();
         }
 
-        ExampleResponse exampleResponse = new ExampleResponse();
-        exampleResponse.setId(example.getId());
-        exampleResponse.setName(example.getName());
-        return ResponseEntity.ok(exampleResponse);
+        MovieResponse movieResponse = new MovieResponse();
+        movieResponse.setMovieId(movie.getMovieId());
+        movieResponse.setTitle(movie.getTitle());
+        movieResponse.setDescription(movie.getDescription());
+        return ResponseEntity.ok(movieResponse);
     }
 
-    @PostMapping
-    public ResponseEntity<ExampleResponse> addNewConcert(@RequestBody ExampleCreateRequest exampleCreateRequest) {
-        Example example = new Example(randomUUID().toString(),
-                exampleCreateRequest.getName());
-        exampleService.addNewExample(example);
+    @PostMapping("/movie/add")
+    public ResponseEntity<MovieResponse> addNewConcert(@RequestBody MovieCreateRequest movieCreateRequest) {
+        Movie movie = new Movie(randomUUID().toString(),
+                movieCreateRequest.getTitle(),
+                movieCreateRequest.getDescription());
+        movieService.addNewMovie(movie);
 
-        ExampleResponse exampleResponse = new ExampleResponse();
-        exampleResponse.setId(example.getId());
-        exampleResponse.setName(example.getName());
+        MovieResponse movieResponse = new MovieResponse();
+        movieResponse.setMovieId(movie.getMovieId());
+        movieResponse.setTitle(movie.getTitle());
+        movieResponse.setDescription(movie.getDescription());
 
-        return ResponseEntity.created(URI.create("/example/" + exampleResponse.getId())).body(exampleResponse);
+        return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
     }
 }

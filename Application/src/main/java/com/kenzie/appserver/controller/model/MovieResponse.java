@@ -7,24 +7,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class MovieResponse {
 
     @JsonProperty("id")
-    private String id;
+    private String movieId;
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("title")
+    private String title;
 
-    public String getId() {
-        return id;
+    @JsonProperty("description")
+    private String description;
+
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

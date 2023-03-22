@@ -6,25 +6,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RSVPResponse {
 
-    @JsonProperty("id")
-    private String id;
+    @JsonProperty("eventId")
+    private String eventId;
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("userId")
+    private String userId;
 
-    public String getId() {
-        return id;
+    @JsonProperty("isAttending")
+    private Boolean isAttending;
+
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Boolean getIsAttending() {
+        return isAttending;
+    }
+
+    public void setIsAttending(Boolean isAttending) {
+        this.isAttending = isAttending;
     }
 }
