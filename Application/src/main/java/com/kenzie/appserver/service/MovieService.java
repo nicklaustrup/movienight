@@ -1,32 +1,33 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.repositories.ExampleRepository;
-import com.kenzie.appserver.repositories.model.ExampleRecord;
-import com.kenzie.appserver.service.model.Example;
+import com.kenzie.appserver.repositories.MovieRepository;
+import com.kenzie.appserver.repositories.model.MovieRecord;
+import com.kenzie.appserver.service.model.Movie;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MovieService {
-    private ExampleRepository exampleRepository;
+    private MovieRepository movieRepository;
 
-    public MovieService(ExampleRepository exampleRepository) {
-        this.exampleRepository = exampleRepository;
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
     }
 
-    public Example findById(String id) {
-        Example exampleFromBackend = exampleRepository
-                .findById(id)
-                .map(example -> new Example(example.getId(), example.getName()))
+    public Movie findById(String movieId) {
+        Movie movieFromBackend = movieRepository
+                .findById(movieId)
+                .map(movie -> new Movie(movie.getMovieId(), movie.getTitle(), movie.getDescription()))
                 .orElse(null);
 
-        return exampleFromBackend;
+        return movieFromBackend;
     }
 
-    public Example addNewExample(Example example) {
-        ExampleRecord exampleRecord = new ExampleRecord();
-        exampleRecord.setId(example.getId());
-        exampleRecord.setName(example.getName());
-        exampleRepository.save(exampleRecord);
-        return example;
+    public Movie addNewMovie(Movie movie) {
+        MovieRecord movieRecord = new MovieRecord();
+        movieRecord.setMovieId(movie.getMovieId());
+        movieRecord.setTitle(movie.getTitle());
+        movieRecord.setDescription(movie.getDescription());
+        movieRepository.save(movieRecord);
+        return movie;
     }
 }

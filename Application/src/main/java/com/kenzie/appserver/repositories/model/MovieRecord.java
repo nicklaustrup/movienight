@@ -9,25 +9,35 @@ import java.util.Objects;
 @DynamoDBTable(tableName = "Movie")
 public class MovieRecord {
 
-    private String id;
-    private String name;
+    private String movieId;
+    private String title;
+    private String description;
 
-    @DynamoDBHashKey(attributeName = "Id")
-    public String getId() {
-        return id;
+    @DynamoDBHashKey(attributeName = "movieId")
+    public String getMovieId() {
+        return movieId;
     }
 
-    @DynamoDBAttribute(attributeName = "Name")
-    public String getName() {
-        return name;
+    @DynamoDBAttribute(attributeName = "title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+    @DynamoDBAttribute(attributeName = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -38,12 +48,12 @@ public class MovieRecord {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MovieRecord exampleRecord = (MovieRecord) o;
-        return Objects.equals(id, exampleRecord.id);
+        MovieRecord movieRecord = (MovieRecord) o;
+        return Objects.equals(movieId, movieRecord.getMovieId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(movieId);
     }
 }

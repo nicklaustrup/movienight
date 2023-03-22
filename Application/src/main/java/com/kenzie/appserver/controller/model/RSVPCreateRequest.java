@@ -7,14 +7,38 @@ import javax.validation.constraints.NotEmpty;
 public class RSVPCreateRequest {
 
     @NotEmpty
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("eventId")
+    private String eventId;
 
-    public String getName() {
-        return name;
+    @NotEmpty
+    @JsonProperty("userId")
+    private String userId;
+
+    @NotEmpty
+    @JsonProperty("isAttending")
+    private Boolean isAttending;
+
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Boolean getIsAttending() {
+        return isAttending;
+    }
+
+    public void setIsAttending(Boolean isAttending) {
+        this.isAttending = isAttending;
     }
 }

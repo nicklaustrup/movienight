@@ -9,26 +9,33 @@ import java.util.Objects;
 @DynamoDBTable(tableName = "RSVP")
 public class RSVPRecord {
 
-    private String id;
-    private String name;
+    private String userId;
+    private String eventId;
+    private Boolean isAttending;
 
-    @DynamoDBHashKey(attributeName = "Id")
-    public String getId() {
-        return id;
+    //TODO Decide what the hashkey is
+    @DynamoDBHashKey(attributeName = "userId")
+    public String getUserId() {
+        return userId;
     }
 
-    @DynamoDBAttribute(attributeName = "Name")
-    public String getName() {
-        return name;
+    @DynamoDBAttribute(attributeName = "eventId")
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @DynamoDBAttribute(attributeName = "isAttending")
+    public Boolean getIsAttending(){ return isAttending;}
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
+
+    public void setIsAttending(Boolean isAttending){this.isAttending = isAttending;}
 
     @Override
     public boolean equals(Object o) {
@@ -38,12 +45,12 @@ public class RSVPRecord {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RSVPRecord exampleRecord = (RSVPRecord) o;
-        return Objects.equals(id, exampleRecord.id);
+        RSVPRecord rsvpRecord = (RSVPRecord) o;
+        return Objects.equals(userId + eventId, rsvpRecord.userId + rsvpRecord.eventId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(userId + eventId);
     }
 }
