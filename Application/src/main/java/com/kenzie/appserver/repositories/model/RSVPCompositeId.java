@@ -11,12 +11,7 @@ public class RSVPCompositeId implements Serializable {
 
     private String eventId;
 
-//    public RSVPCompositeId(){}
-//
-//    public RSVPCompositeId(String userId, String eventId){
-//        this.eventId = eventId;
-//        this.userId = userId;
-//    }
+
 
     @DynamoDBHashKey
     public String getUserId(){

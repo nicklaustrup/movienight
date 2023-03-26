@@ -22,7 +22,7 @@ public class MovieCreateRequest {
         return movieId;
     }
 
-    public void setName(String movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 

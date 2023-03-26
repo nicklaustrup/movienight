@@ -4,11 +4,13 @@ import com.kenzie.appserver.repositories.RSVPRepository;
 import com.kenzie.appserver.repositories.model.RSVPCompositeId;
 import com.kenzie.appserver.repositories.model.RSVPRecord;
 import com.kenzie.appserver.service.model.RSVP;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RSVPService {
 
+    @Autowired
     private RSVPRepository rsvpRepository;
 
     public RSVPService(RSVPRepository rsvpRepository) {
