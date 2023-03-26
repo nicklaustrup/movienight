@@ -2,9 +2,12 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.ExampleCreateRequest;
 import com.kenzie.appserver.controller.model.ExampleResponse;
+import com.kenzie.appserver.controller.model.UserCreateRequest;
+import com.kenzie.appserver.controller.model.UserResponse;
 import com.kenzie.appserver.service.ExampleService;
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.Example;
+import com.kenzie.appserver.service.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,30 +25,35 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ExampleResponse> get(@PathVariable("id") String id) {
-//
-//        Example example = userService.findById(id);
-//        if (example == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        ExampleResponse exampleResponse = new ExampleResponse();
-//        exampleResponse.setId(example.getId());
-//        exampleResponse.setName(example.getName());
-//        return ResponseEntity.ok(exampleResponse);
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<ExampleResponse> addNewConcert(@RequestBody ExampleCreateRequest exampleCreateRequest) {
-//        Example example = new Example(randomUUID().toString(),
-//                exampleCreateRequest.getName());
-//        exampleService.addNewExample(example);
-//
-//        ExampleResponse exampleResponse = new ExampleResponse();
-//        exampleResponse.setId(example.getId());
-//        exampleResponse.setName(example.getName());
-//
-//        return ResponseEntity.created(URI.create("/example/" + exampleResponse.getId())).body(exampleResponse);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> get(@PathVariable("userId") String id) {
+
+        User user = userService.findById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUserId(user.getUserId());
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setLastName(user.getLastName());
+
+        return ResponseEntity.ok(userResponse);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserResponse> addNewUser(@RequestBody UserCreateRequest userCreateRequest) {
+        User user = new User(randomUUID().toString(),
+                userCreateRequest.getFirstName(),
+                userCreateRequest.getLastName());
+
+        userService.addNewUser(user);
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUserId(user.getUserId());
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setLastName(user.getLastName());
+
+        return ResponseEntity.created(URI.create("/user/" + userResponse.getUserId())).body(userResponse);
+    }
 }
