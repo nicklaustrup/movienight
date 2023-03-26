@@ -37,8 +37,8 @@ public class MovieController {
         return ResponseEntity.ok(movieResponse);
     }
 
-    @PostMapping("/movie/add")
-    public ResponseEntity<MovieResponse> addNewConcert(@RequestBody MovieCreateRequest movieCreateRequest) {
+    @PostMapping("/add")
+    public ResponseEntity<MovieResponse> addNewMovie(@RequestBody MovieCreateRequest movieCreateRequest) {
         Movie movie = new Movie(randomUUID().toString(),
                 movieCreateRequest.getTitle(),
                 movieCreateRequest.getDescription());

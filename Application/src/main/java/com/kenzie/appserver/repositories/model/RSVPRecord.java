@@ -4,7 +4,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.annotation.Id;
+
 
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ public class RSVPRecord {
 
 //    private String userId;
 //    private String eventId;
+
     @Id
     private RSVPCompositeId compositeId;
     private Boolean isAttending;
