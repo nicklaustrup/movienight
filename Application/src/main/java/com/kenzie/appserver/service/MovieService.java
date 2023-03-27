@@ -5,6 +5,8 @@ import com.kenzie.appserver.repositories.model.MovieRecord;
 import com.kenzie.appserver.service.model.Movie;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieService {
     private MovieRepository movieRepository;
@@ -29,5 +31,12 @@ public class MovieService {
         movieRecord.setDescription(movie.getDescription());
         movieRepository.save(movieRecord);
         return movie;
+    }
+
+    public List<MovieRecord> findAll() {
+        List<MovieRecord> movieFromBackend = (List<MovieRecord>) movieRepository
+                .findAll();
+
+        return movieFromBackend;
     }
 }
