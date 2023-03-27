@@ -6,6 +6,7 @@ import com.kenzie.appserver.repositories.model.RSVPCompositeId;
 import com.kenzie.appserver.repositories.model.RSVPRecord;
 import com.kenzie.appserver.service.RSVPService;
 import com.kenzie.appserver.service.model.RSVP;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.*;
 @RequestMapping("/rsvp")
 public class RSVPController {
 
+    @Autowired
     private RSVPService rsvpService;
 
     RSVPController(RSVPService rsvpService) {
@@ -60,16 +62,16 @@ public class RSVPController {
     }
 
     //Get All Users invited to an event
-    @GetMapping("/{eventId}")
+    @GetMapping("/users/{eventId}")
     public ResponseEntity<List<RSVPResponse>> getAllUsersForEvent(@PathVariable("eventId") String eventId) {
 
         //create a list of RSVPs
-        List<RSVP> rsvpList = convertIterableToList(rsvpService.findAll());
+        List<RSVPRecord> rsvpList = rsvpService.findAll();
 
         //Create a list for all users invited to an event
         List<RSVPResponse> usersForEventResponse = new ArrayList<>();
 
-        for (RSVP rsvp:rsvpList) {
+        for (RSVPRecord rsvp:rsvpList) {
             if (rsvp.getEventId().equals(eventId)) {
                 RSVPResponse rsvpResponse = new RSVPResponse();
                 rsvpResponse.setUserId(rsvp.getUserId());
@@ -83,16 +85,16 @@ public class RSVPController {
     }
 
     //Get all Events a User is invited to
-    @GetMapping("/{userId}")
+    @GetMapping("/events/{userId}")
     public ResponseEntity<List<RSVPResponse>> getAllEventsForUser(@PathVariable("userId") String userId) {
 
         //create a list of RSVPs
-        List<RSVP> rsvpList = convertIterableToList(rsvpService.findAll());
+        List<RSVPRecord> rsvpList = rsvpService.findAll();
 
         //Create a list for all users invited to an event
         List<RSVPResponse> eventsForUserResponse = new ArrayList<>();
 
-        for (RSVP rsvp:rsvpList) {
+        for (RSVPRecord rsvp:rsvpList) {
             if (rsvp.getUserId().equals(userId)) {
                 RSVPResponse rsvpResponse = new RSVPResponse();
                 rsvpResponse.setUserId(rsvp.getUserId());
@@ -103,27 +105,5 @@ public class RSVPController {
         }
 
         return ResponseEntity.ok(eventsForUserResponse);
-    }
-
-    private List<RSVP> convertIterableToList(Iterable<RSVPRecord> allRecords){
-
-        //Create empty array list to hold our records
-        List<RSVPRecord> allRSVPRecords = new ArrayList<>();
-
-        //Convert iterable to arraylist
-        Iterator<RSVPRecord> iterator = allRecords.iterator();
-        iterator.forEachRemaining(allRSVPRecords::add);
-
-        //Create List of RSVPs
-        List<RSVP> rsvpList = new ArrayList<>();
-
-        //Convert RSVPRecords to RSVPs
-        for (RSVPRecord record: allRecords) {
-            RSVP rsvp = new RSVP(record.getUserId(), record.getEventId(), record.getIsAttending());
-            rsvpList.add(rsvp);
-        }
-
-
-        return rsvpList;
     }
 }

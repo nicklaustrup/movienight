@@ -8,10 +8,6 @@ import java.util.Objects;
 
 @DynamoDBTable(tableName = "RSVP")
 public class RSVPRecord {
-
-//    private String userId;
-//    private String eventId;
-
     @Id
     private RSVPCompositeId compositeId;
     private Boolean isAttending;
@@ -26,8 +22,8 @@ public class RSVPRecord {
         return compositeId != null ? compositeId.getEventId() : null;
     }
 
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
     @DynamoDBAttribute(attributeName = "isAttending")
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
     public Boolean getIsAttending(){ return isAttending;}
 
     public void setUserId(String userId) {

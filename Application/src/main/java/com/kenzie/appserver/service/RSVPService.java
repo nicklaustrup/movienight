@@ -11,8 +11,6 @@ import java.util.List;
 
 @Service
 public class RSVPService {
-
-    @Autowired
     private RSVPRepository rsvpRepository;
 
     public RSVPService(RSVPRepository rsvpRepository) {
@@ -29,8 +27,8 @@ public class RSVPService {
         return rsvpFromBackend;
     }
 
-    public Iterable<RSVPRecord> findAll() {
-        Iterable<RSVPRecord> rsvpFromBackend = rsvpRepository
+    public List<RSVPRecord> findAll() {
+        List<RSVPRecord> rsvpFromBackend = (List<RSVPRecord>) rsvpRepository
                 .findAll();
 
         return rsvpFromBackend;
