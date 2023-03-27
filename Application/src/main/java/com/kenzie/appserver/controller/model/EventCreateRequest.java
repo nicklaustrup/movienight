@@ -5,6 +5,7 @@ import com.kenzie.appserver.service.model.RSVP;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventCreateRequest {
@@ -66,6 +67,16 @@ public class EventCreateRequest {
     }
 
     public void setUsers(List<RSVP> users) {
-        this.users = users;
-    } //TODO implement copy since it is mutable
+        this.users = copyUserList(users);
+    }
+
+    public List<RSVP> copyUserList (List<RSVP> users) {
+        List<RSVP> copyUserList = new ArrayList<>();
+        RSVP copyUser;
+        for (RSVP user: users) {
+            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
+            copyUserList.add(copyUser);
+        }
+        return copyUserList;
+    }
 }
