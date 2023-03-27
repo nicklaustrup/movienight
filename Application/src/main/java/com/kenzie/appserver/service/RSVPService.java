@@ -7,6 +7,8 @@ import com.kenzie.appserver.service.model.RSVP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RSVPService {
 
@@ -19,11 +21,17 @@ public class RSVPService {
 
 
     public RSVP findById(RSVPCompositeId compositeId) {
-        RSVP rsvpFromBackend = null;
-                rsvpRepository
+        RSVP rsvpFromBackend = rsvpRepository
                 .findById(compositeId)
                 .map(rsvp -> new RSVP(rsvp.getUserId(), rsvp.getEventId(), rsvp.getIsAttending()))
                 .orElse(null);
+
+        return rsvpFromBackend;
+    }
+
+    public Iterable<RSVPRecord> findAll() {
+        Iterable<RSVPRecord> rsvpFromBackend = rsvpRepository
+                .findAll();
 
         return rsvpFromBackend;
     }

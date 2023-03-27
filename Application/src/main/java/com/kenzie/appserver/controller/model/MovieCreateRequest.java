@@ -5,10 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;
 
 public class MovieCreateRequest {
+<<<<<<< Updated upstream
 //comment
     @NotEmpty
     @JsonProperty("movieId")
     private String movieId;
+=======
+>>>>>>> Stashed changes
 
     @NotEmpty
     @JsonProperty("title")
