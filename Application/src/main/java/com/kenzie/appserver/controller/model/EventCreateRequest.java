@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventCreateRequest {
-//test 01
+
     @NotEmpty
     @JsonProperty("eventTitle")
     private String eventTitle;
@@ -67,5 +67,5 @@ public class EventCreateRequest {
 
     public void setUsers(List<RSVP> users) {
         this.users = users;
-    }
+    } //TODO implement copy since it is mutable
 }

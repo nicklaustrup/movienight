@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kenzie.appserver.service.model.RSVP;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -73,6 +74,16 @@ public class EventResponse {
     }
 
     public void setUsers(List<RSVP> users) {
-        this.users = users;
+        this.users = copyUserList(users);
+    }
+
+    public List<RSVP> copyUserList (List<RSVP> users) {
+        List<RSVP> copyUserList = new ArrayList<>();
+        RSVP copyUser;
+        for (RSVP user: users) {
+            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
+            copyUserList.add(copyUser);
+        }
+        return copyUserList;
     }
 }

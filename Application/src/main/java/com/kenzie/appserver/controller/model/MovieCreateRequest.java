@@ -6,9 +6,6 @@ import javax.validation.constraints.NotEmpty;
 
 public class MovieCreateRequest {
 //comment
-    @NotEmpty
-    @JsonProperty("movieId")
-    private String movieId;
 
     @NotEmpty
     @JsonProperty("title")
@@ -17,14 +14,6 @@ public class MovieCreateRequest {
     @NotEmpty
     @JsonProperty("description")
     private String description;
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setName(String movieId) {
-        this.movieId = movieId;
-    }
 
     public String getTitle() {
         return title;

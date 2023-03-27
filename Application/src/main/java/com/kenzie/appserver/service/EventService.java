@@ -3,7 +3,9 @@ package com.kenzie.appserver.service;
 import com.kenzie.appserver.repositories.EventRepository;
 import com.kenzie.appserver.repositories.model.EventRecord;
 import com.kenzie.appserver.service.model.Event;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EventService {
     private EventRepository eventRepository;
 
