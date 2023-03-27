@@ -18,7 +18,7 @@ public class Event {
         this.movieId = movieId;
         this.date = date;
         this.active = active;
-        this.users = users;//TODO Check if this should be a parameter for the constructor
+        this.users = copyUserList(users);
     }
 
     public String getEventId() {
@@ -43,5 +43,15 @@ public class Event {
 
     public List<RSVP> getUsers() {
         return users;
+    }
+
+    public List<RSVP> copyUserList (List<RSVP> users) {
+        List<RSVP> copyUserList = new ArrayList<>();
+        RSVP copyUser;
+        for (RSVP user: users) {
+            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
+            copyUserList.add(copyUser);
+        }
+        return copyUserList;
     }
 }

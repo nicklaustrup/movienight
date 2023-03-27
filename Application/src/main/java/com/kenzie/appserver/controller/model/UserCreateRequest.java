@@ -6,9 +6,6 @@ import javax.validation.constraints.NotEmpty;
 
 public class UserCreateRequest {
 
-    @NotEmpty
-    @JsonProperty("userId")
-    private String userId;
 
     @NotEmpty
     @JsonProperty("firstName")
@@ -17,14 +14,6 @@ public class UserCreateRequest {
     @NotEmpty
     @JsonProperty("lastName")
     private String lastName;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getFirstName() {
         return firstName;
