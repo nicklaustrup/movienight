@@ -5,10 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;
 
 public class MovieCreateRequest {
-//comment
-    @NotEmpty
-    @JsonProperty("movieId")
-    private String movieId;
 
     @NotEmpty
     @JsonProperty("title")
@@ -25,7 +21,6 @@ public class MovieCreateRequest {
     public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
-
     public String getTitle() {
         return title;
     }

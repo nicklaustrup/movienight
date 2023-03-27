@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.kenzie.appserver.service.model.RSVP;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,7 +70,7 @@ public class EventRecord {
     }
 
     public void setUsers(List<RSVP> users) {
-        this.users = users;
+        this.users = copyUserList(users);
     }
 
     @Override
@@ -83,5 +84,15 @@ public class EventRecord {
     @Override
     public int hashCode() {
         return Objects.hash(eventId, eventTitle, movieId, date, active, users);
+    }
+
+    public List<RSVP> copyUserList (List<RSVP> users) {
+        List<RSVP> copyUserList = new ArrayList<>();
+        RSVP copyUser;
+        for (RSVP user: users) {
+            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
+            copyUserList.add(copyUser);
+        }
+        return copyUserList;
     }
 }

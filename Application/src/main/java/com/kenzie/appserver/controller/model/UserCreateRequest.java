@@ -18,6 +18,7 @@ public class UserCreateRequest {
     @JsonProperty("lastName")
     private String lastName;
 
+
     public String getUserId() {
         return userId;
     }
