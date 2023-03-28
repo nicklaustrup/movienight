@@ -2,8 +2,10 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.EventCreateRequest;
 import com.kenzie.appserver.controller.model.EventResponse;
+import com.kenzie.appserver.repositories.model.RSVPRecord;
 import com.kenzie.appserver.service.EventService;
 
+import com.kenzie.appserver.service.RSVPService;
 import com.kenzie.appserver.service.model.Event;
 import com.kenzie.appserver.service.model.RSVP;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +22,11 @@ import static java.util.UUID.randomUUID;
 public class EventController {
 
     private EventService eventService;
+    private RSVPService rsvpService;
 
-    EventController(EventService eventService) {
+    EventController(EventService eventService, RSVPService rsvpService) {
         this.eventService = eventService;
+        this.rsvpService = rsvpService;
     }
 
     @GetMapping("/{eventId}")
@@ -39,6 +43,21 @@ public class EventController {
         eventResponse.setMovieId(event.getMovieId());
         eventResponse.setDate(event.getDate());
         eventResponse.setActive(event.getActive());
+
+        //create a list of RSVPs
+        List<RSVPRecord> rsvpList = rsvpService.findAll();
+
+        //Create a list for all users invited to an event
+        List<RSVP> usersForEvent = new ArrayList<>();
+
+        for (RSVPRecord rsvpRecord:rsvpList) {
+            if (rsvpRecord.getEventId().equals(eventId)) {
+                RSVP rsvp = new RSVP(rsvpRecord.getUserId(), rsvpRecord.getEventId(),rsvpRecord.getIsAttending());
+                usersForEvent.add(rsvp);
+            }
+        }
+        eventResponse.setUsers(usersForEvent);
+
         return ResponseEntity.ok(eventResponse);
     }
 

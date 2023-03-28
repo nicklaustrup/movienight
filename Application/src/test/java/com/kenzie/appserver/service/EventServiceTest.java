@@ -1,6 +1,7 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.repositories.EventRepository;
+import com.kenzie.appserver.repositories.RSVPRepository;
 import com.kenzie.appserver.repositories.model.EventRecord;
 import com.kenzie.appserver.service.model.Event;
 import com.kenzie.appserver.service.model.RSVP;
@@ -21,11 +22,15 @@ public class EventServiceTest {
 
     private EventRepository eventRepository;
     private EventService eventService;
+    private RSVPRepository rsvpRepository;
+    private RSVPService rsvpService;
+
 
     @BeforeEach
     void setup() {
         eventRepository = mock(EventRepository.class);
-        eventService = new EventService(eventRepository);
+        rsvpRepository = mock(RSVPRepository.class);
+        eventService = new EventService(eventRepository, rsvpRepository);
     }
     /** ------------------------------------------------------------------------
      *  eventService.findById
