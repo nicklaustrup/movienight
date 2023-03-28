@@ -1,7 +1,6 @@
 package com.kenzie.appserver.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kenzie.appserver.service.model.RSVP;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class EventCreateRequest {
 
     @NotEmpty
     @JsonProperty("users")
-    private List<RSVP> users;
+    private List<String> users;
 
     public String getEventTitle() {
         return eventTitle;
@@ -62,19 +61,19 @@ public class EventCreateRequest {
         this.active = active;
     }
 
-    public List<RSVP> getUsers() {
+    public List<String> getUsers() {
         return users;
     }
 
-    public void setUsers(List<RSVP> users) {
+    public void setUsers(List<String> users) {
         this.users = copyUserList(users);
     }
 
-    public List<RSVP> copyUserList (List<RSVP> users) {
-        List<RSVP> copyUserList = new ArrayList<>();
-        RSVP copyUser;
-        for (RSVP user: users) {
-            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
+    public List<String> copyUserList (List<String> users) {
+        List<String> copyUserList = new ArrayList<>();
+        String copyUser;
+        for (String user: users) {
+            copyUser = user;
             copyUserList.add(copyUser);
         }
         return copyUserList;

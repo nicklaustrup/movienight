@@ -3,7 +3,10 @@ package com.kenzie.appserver.service;
 import com.kenzie.appserver.repositories.EventRepository;
 import com.kenzie.appserver.repositories.model.EventRecord;
 import com.kenzie.appserver.service.model.Event;
+import com.kenzie.appserver.service.model.RSVP;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EventService {
@@ -15,18 +18,17 @@ public class EventService {
     public Event findById(String id) {
         Event eventFromBackend = eventRepository
                 .findById(id)
-                .map(event -> new Event(event.getEventId(), event.getEventTitle(), event.getMovieId(), event.getDate(), event.getActive(), event.getUsers()))
+                .map(event -> new Event(event.getEventId(), event.getEventTitle(), event.getMovieId(), event.getDate(), event.getActive()))
                 .orElse(null);
         return eventFromBackend;
     }
-    public Event addNewEvent(Event event) {
+    public Event addNewEvent(Event event, List<RSVP> users) {
         EventRecord eventRecord = new EventRecord();
         eventRecord.setEventId(event.getEventId());
         eventRecord.setEventTitle(event.getEventTitle());
         eventRecord.setMovieId(event.getMovieId());
         eventRecord.setDate(event.getDate());
         eventRecord.setActive(event.getActive());
-        eventRecord.setUsers(event.getUsers());
         eventRepository.save(eventRecord); //TODO need to add logic for adding RSVP records here as well
         return event;
     }
