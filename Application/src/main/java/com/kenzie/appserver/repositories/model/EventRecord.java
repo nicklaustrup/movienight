@@ -1,13 +1,9 @@
 package com.kenzie.appserver.repositories.model;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.kenzie.appserver.service.model.RSVP;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.kenzie.appserver.converter.LocalDateTimeConverter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Event")
@@ -17,7 +13,6 @@ public class EventRecord {
     private String movieId;
     private LocalDateTime date;
     private Boolean active;
-    private List<RSVP> users;
 
     @DynamoDBHashKey(attributeName = "eventId")
     public String getEventId() {
@@ -35,18 +30,15 @@ public class EventRecord {
     }
 
     @DynamoDBAttribute(attributeName = "date")
+    @DynamoDBTypeConverted(converter = LocalDateTimeConverter.class)
     public LocalDateTime getDate() {
         return date;
     }
 
     @DynamoDBAttribute(attributeName = "active")
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
     public Boolean getActive() {
         return active;
-    }
-
-    @DynamoDBAttribute(attributeName = "users")
-    public List<RSVP> getUsers() {
-        return users;
     }
 
     public void setEventId(String eventId) {
@@ -69,30 +61,16 @@ public class EventRecord {
         this.active = active;
     }
 
-    public void setUsers(List<RSVP> users) {
-        this.users = copyUserList(users);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EventRecord that = (EventRecord) o;
-        return Objects.equals(eventId, that.eventId) && Objects.equals(eventTitle, that.eventTitle) && Objects.equals(movieId, that.movieId) && Objects.equals(date, that.date) && Objects.equals(active, that.active) && Objects.equals(users, that.users);
+        return eventId.equals(that.eventId) && eventTitle.equals(that.eventTitle) && movieId.equals(that.movieId) && date.equals(that.date) && active.equals(that.active);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, eventTitle, movieId, date, active, users);
-    }
-
-    public List<RSVP> copyUserList (List<RSVP> users) {
-        List<RSVP> copyUserList = new ArrayList<>();
-        RSVP copyUser;
-        for (RSVP user: users) {
-            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
-            copyUserList.add(copyUser);
-        }
-        return copyUserList;
+        return Objects.hash(eventId, eventTitle, movieId, date, active);
     }
 }

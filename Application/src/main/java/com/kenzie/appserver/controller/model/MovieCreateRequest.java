@@ -14,13 +14,6 @@ public class MovieCreateRequest {
     @JsonProperty("description")
     private String description;
 
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
-    }
     public String getTitle() {
         return title;
     }
