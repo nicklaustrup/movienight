@@ -5,9 +5,9 @@ public class RSVP {
     private final String eventId;
     private final Boolean isAttending;
 
-    public RSVP(String userId, String name, boolean isAttending) {
+    public RSVP(String userId, String eventId, boolean isAttending) {
         this.userId = userId;
-        this.eventId = name;
+        this.eventId = eventId;
         this.isAttending = isAttending;
     }
 

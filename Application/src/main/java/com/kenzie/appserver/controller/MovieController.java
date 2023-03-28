@@ -51,4 +51,6 @@ public class MovieController {
 
         return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
     }
+
+    //TODO Add Get All movies
 }
