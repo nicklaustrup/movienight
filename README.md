@@ -27,6 +27,14 @@ DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin
 ```
 ./gradlew :Application:bootRunDev
 ```
+**>> Load the test data**
+* Open a terminal in Intelli J and run:
+```
+./dynamodb_preload.sh
+```
+* If you want to delete all the entries from your tables. Stop all the commands from above that are running in the background;
+and start over.
+
 **>> Just for building**
 * Open a terminal in Intelli J and run:
 ```

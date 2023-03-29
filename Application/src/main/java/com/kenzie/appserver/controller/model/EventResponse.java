@@ -20,6 +20,12 @@ public class EventResponse {
     @JsonProperty("movieId")
     private String movieId;
 
+    @JsonProperty("title")
+    private String title;
+
+    @JsonProperty("description")
+    private String description;
+
     @JsonProperty("date")
     private LocalDateTime date;
 
@@ -27,7 +33,7 @@ public class EventResponse {
     private Boolean active;
 
     @JsonProperty("users")
-    private List<RSVP> users;
+    private List<RSVPUser> users;
 
     public String getEventId() {
         return eventId;
@@ -53,6 +59,22 @@ public class EventResponse {
         this.movieId = movieId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public LocalDateTime getDate() {
         return date;
     }
@@ -69,21 +91,11 @@ public class EventResponse {
         this.active = active;
     }
 
-    public List<RSVP> getUsers() {
+    public List<RSVPUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<RSVP> users) {
-        this.users = copyUserList(users);
-    }
-
-    public List<RSVP> copyUserList (List<RSVP> users) {
-        List<RSVP> copyUserList = new ArrayList<>();
-        RSVP copyUser;
-        for (RSVP user: users) {
-            copyUser = new RSVP(user.getUserId(), user.getEventId(), user.getIsAttending());
-            copyUserList.add(copyUser);
-        }
-        return copyUserList;
+    public void setUsers(List<RSVPUser> users) {
+        this.users = users;
     }
 }
