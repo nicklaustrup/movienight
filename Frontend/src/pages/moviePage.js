@@ -17,27 +17,33 @@ class MoviePage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
-        document.getElementById('create-form').addEventListener('submit', this.onCreate);
+        document.getElementById('get-by-movieId-form').addEventListener('submit', this.onGet);
+        document.getElementById('create-movie-form').addEventListener('submit', this.onCreate);
         this.client = new MovieClient();
-
-        this.dataStore.addChangeListener(this.renderExample)
+        await this.client.getAllMovies();
+        // this.dataStore.addChangeListener(this.renderMovies)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async renderMovies() {
-        let resultArea = document.getElementById("result-info");
+        let resultArea = document.getElementById("movie-result");
+        let movieHTML = "<ul>"
 
-        const example = this.dataStore.get("example");
+        const movies = this.dataStore.get("movie");
 
-        if (example) {
-            resultArea.innerHTML = `
-                <div>ID: ${example.id}</div>
-                <div>Name: ${example.name}</div>
-            `
+
+        if (movies) {
+            for (let movie of movies){
+            movieHTML += `<li>
+                <h3>Title: ${movie.title}</h3>
+                <h4>Summary: ${movie.description}</h4>
+                </li>`
+                }
+            movieHTML += "</ul>";
+            resultArea.innerHTML = movieHTML;
         } else {
-            resultArea.innerHTML = "No Item";
+            resultArea.innerHTML = "No Movies";
         }
     }
 
@@ -47,13 +53,13 @@ class MoviePage extends BaseClass {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let id = document.getElementById("id-field").value;
-        this.dataStore.set("example", null);
+        let movieId = document.getElementById("movieId-field").value;
+        this.dataStore.set("movie", null);
 
-        let result = await this.client.getExample(id, this.errorHandler);
-        this.dataStore.set("example", result);
+        let result = await this.client.getMovie(movieId, this.errorHandler);
+        this.dataStore.set("movie", result);
         if (result) {
-            this.showMessage(`Got ${result.name}!`)
+            this.showMessage(`Got ${result.title}!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
@@ -62,15 +68,17 @@ class MoviePage extends BaseClass {
     async onCreate(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        this.dataStore.set("example", null);
+        this.dataStore.set("movie", null);
 
-        let name = document.getElementById("create-name-field").value;
+        let title = document.getElementById("create-title-field").value;
+        let description = document.getElementById("create-description-field").value;
 
-        const createdExample = await this.client.createExample(name, this.errorHandler);
-        this.dataStore.set("example", createdExample);
 
-        if (createdExample) {
-            this.showMessage(`Created ${createdExample.name}!`)
+        const createdMovie = await this.client.createMovie(title, description, this.errorHandler);
+        this.dataStore.set("movie", createdMovie);
+
+        if (createdMovie) {
+            this.showMessage(`Created ${createdMovie.title}!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
@@ -81,8 +89,8 @@ class MoviePage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const examplePage = new ExamplePage();
-    examplePage.mount();
+    const moviePage = new MoviePage();
+    await moviePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

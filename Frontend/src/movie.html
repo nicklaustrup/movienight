@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+<head>
+    <script type="text/javascript" src="pages/moviePage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">Movie Night</a>
+    </div>
+</header>
+<div class="card">
+    <h2>Create Movie</h2>
+    <form class="card-content" id="create-movie-form">
+        <p class="form-field">
+            <label for="create-title-field">Title</label>
+            <input type="text" required class="validated-field" id="create-title-field">
+            <label for="create-description-field">Description</label>
+            <input type="text" required class="validated-field" id="create-description-field">
+        </p>
+        <button type="submit">Create</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Get By Movie ID</h2>
+    <form class="card-content" id="get-by-movieId-form">
+        <p class="form-field">
+            <label for="movieId-field">MovieID</label>
+            <input type="text" required class="validated-field" id="movieId-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card" id="result">
+    <h2>Movie:</h2>
+    <p id="movie-result"> </p>
+</div>
+
+</body>
+</html>

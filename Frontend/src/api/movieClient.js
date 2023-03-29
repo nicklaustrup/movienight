@@ -31,8 +31,8 @@ export default class MovieClient extends BaseClass {
     }
 
     /**
-     * Gets the concert for the given ID.
-     * @param id Unique identifier for a concert
+     * Gets the movie for the given ID.
+     * @param movieId Unique identifier for a movie
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
@@ -55,7 +55,7 @@ export default class MovieClient extends BaseClass {
 
     async createMovie(title, description, errorCallback) {
         try {
-            const response = await this.client.post(`/movie/add`, {
+            const response = await this.client.post(`/movie`, {
                 title: title,
                 description: description
             });
