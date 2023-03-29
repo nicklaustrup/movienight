@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Login Page</title>
-  <script type="text/javascript" src="login.js"></script>
+    <script type="text/javascript" src="examplePage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
-<body>
-<div id="loginDiv">
-    <h1>Login Page</h1>
-    <label for="userName" >User</label>
-    <input type="text" id="userName" placeholder="User Name" required autofocus><br>
-    <label for="password" >Password</label>
-    <input type="password" id="password" placeholder="Password" required><br>
-    <button id="storeUsername" onclick="store_redirect()">Sign In</button>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">Example App</a>
+    </div>
+</header>
+<div class="card">
+    <h2>Create Example</h2>
+    <form class="card-content" id="create-form">
+        <p class="form-field">
+            <label>Name</label>
+            <input type="text" required class="validated-field" id="create-name-field">
+        </p>
+        <button type="submit">Create</button>
+    </form>
 </div>
+<div class="card">
+    <h2>Get By ID</h2>
+    <form class="card-content" id="get-by-id-form">
+        <p class="form-field">
+            <label>ID</label>
+            <input type="text" required class="validated-field" id="id-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card" id="result">
+    <h2>Result:</h2>
+    <p id="result-info"></p>
+</div>
+
 </body>
 </html>
