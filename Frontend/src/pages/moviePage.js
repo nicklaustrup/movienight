@@ -20,8 +20,10 @@ class MoviePage extends BaseClass {
         document.getElementById('get-by-movieId-form').addEventListener('submit', this.onGet);
         document.getElementById('create-movie-form').addEventListener('submit', this.onCreate);
         this.client = new MovieClient();
+
+        this.dataStore.addChangeListener(this.renderMovies);
         await this.client.getAllMovies();
-        // this.dataStore.addChangeListener(this.renderMovies)
+
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -76,6 +78,7 @@ class MoviePage extends BaseClass {
 
         const createdMovie = await this.client.createMovie(title, description, this.errorHandler);
         this.dataStore.set("movie", createdMovie);
+        console.log("MoviePage onCreate success");
 
         if (createdMovie) {
             this.showMessage(`Created ${createdMovie.title}!`)

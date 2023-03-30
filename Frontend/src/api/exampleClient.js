@@ -47,7 +47,7 @@ export default class ExampleClient extends BaseClass {
 
     async createExample(name, errorCallback) {
         try {
-            const response = await this.client.post(`example`, {
+            const response = await this.client.post(`/example/add/`, {
                 name: name
             });
             return response.data;

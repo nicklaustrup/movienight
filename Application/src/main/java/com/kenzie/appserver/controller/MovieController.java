@@ -51,6 +51,7 @@ public class MovieController {
         movieResponse.setMovieId(movie.getMovieId());
         movieResponse.setTitle(movie.getTitle());
         movieResponse.setDescription(movie.getDescription());
+        System.out.println("Post successful");
 
         return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
     }
