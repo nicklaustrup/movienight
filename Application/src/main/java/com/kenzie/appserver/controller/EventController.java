@@ -2,7 +2,9 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.EventCreateRequest;
 import com.kenzie.appserver.controller.model.EventResponse;
+import com.kenzie.appserver.controller.model.EventUpdateRequest;
 import com.kenzie.appserver.controller.model.RSVPUser;
+import com.kenzie.appserver.repositories.model.EventRecord;
 import com.kenzie.appserver.repositories.model.RSVPRecord;
 import com.kenzie.appserver.service.EventService;
 
@@ -79,7 +81,35 @@ public class EventController {
         eventResponse.setUsers(usersForEvent);
         return ResponseEntity.ok(eventResponse);
     }
+    @GetMapping("/all")
+    public ResponseEntity<List<EventResponse>> getAllEvent() {
 
+        List<EventRecord> eventList = eventService.findAll();
+
+        if (eventList == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<EventResponse> eventResponseList = new ArrayList<>();
+        for (EventRecord eventRecord: eventList) {
+            EventResponse eventResponse = new EventResponse();
+            eventResponse.setEventId(eventRecord.getEventId());
+            eventResponse.setEventTitle(eventRecord.getEventTitle());
+            eventResponse.setMovieId(eventRecord.getMovieId());
+            eventResponse.setDate(eventRecord.getDate());
+            eventResponse.setActive(eventRecord.getActive());
+            //get movie details
+            Movie movie = movieService.findById(eventRecord.getMovieId());
+            if (movie == null) {
+                return ResponseEntity.notFound().build();
+            }
+            eventResponse.setTitle(movie.getTitle());
+            eventResponse.setDescription(movie.getDescription());
+            eventResponseList.add(eventResponse);
+        }
+
+        return ResponseEntity.ok(eventResponseList);
+    }
     @PostMapping
     public ResponseEntity<EventResponse> addNewEvent(@RequestBody EventCreateRequest eventCreateRequest) {
         String eventId = randomUUID().toString();
@@ -120,5 +150,27 @@ public class EventController {
         eventResponse.setUsers(RSVPUsers);
 
         return ResponseEntity.created(URI.create("/event/" + eventResponse.getEventId())).body(eventResponse);
+    }
+    @PutMapping
+    public ResponseEntity<EventResponse> updateEvent(@RequestBody EventUpdateRequest eventUpdateRequest) {
+        Event event = new Event(eventUpdateRequest.getEventId(),
+                eventUpdateRequest.getEventTitle(),
+                eventUpdateRequest.getMovieId(),
+                eventUpdateRequest.getDate(),
+                eventUpdateRequest.getActive());
+        eventService.updateEvent(event);
+
+        EventResponse eventResponse = createEventResponse(event);
+
+        return ResponseEntity.ok(eventResponse);
+    }
+    private EventResponse createEventResponse(Event event) {
+        EventResponse eventResponse = new EventResponse();
+        eventResponse.setEventId(event.getEventId());
+        eventResponse.setEventTitle(event.getEventTitle());
+        eventResponse.setMovieId(event.getMovieId());
+        eventResponse.setDate(event.getDate());
+        eventResponse.setActive(event.getActive());
+        return eventResponse;
     }
 }

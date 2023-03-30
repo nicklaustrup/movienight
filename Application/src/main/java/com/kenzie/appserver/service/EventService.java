@@ -63,6 +63,21 @@ public class EventService {
         }
         return event;
     }
+    public void updateEvent(Event event) {
+        if (eventRepository.existsById(event.getEventId())) {
+            EventRecord eventRecord = new EventRecord();
+            eventRecord.setEventId(event.getEventId());
+            eventRecord.setEventTitle(event.getEventTitle());
+            eventRecord.setMovieId(event.getMovieId());
+            eventRecord.setDate(event.getDate());
+            eventRecord.setActive(event.getActive());
+            eventRepository.save(eventRecord);
+        }
+    }
+    public List<EventRecord> findAll() {
+        List<EventRecord> eventFromBackend = (List<EventRecord>) eventRepository
+                .findAll();
 
-    //TODO add all the other methods for supporting the other APIs
+        return eventFromBackend;
+    }
 }
