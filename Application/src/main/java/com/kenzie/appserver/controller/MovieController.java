@@ -40,7 +40,7 @@ public class MovieController {
         return ResponseEntity.ok(movieResponse);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<MovieResponse> addNewMovie(@RequestBody MovieCreateRequest movieCreateRequest) {
         Movie movie = new Movie(randomUUID().toString(),
                 movieCreateRequest.getTitle(),
@@ -51,6 +51,7 @@ public class MovieController {
         movieResponse.setMovieId(movie.getMovieId());
         movieResponse.setTitle(movie.getTitle());
         movieResponse.setDescription(movie.getDescription());
+        System.out.println("Post successful");
 
         return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
     }

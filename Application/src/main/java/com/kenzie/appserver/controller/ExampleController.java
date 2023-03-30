@@ -36,7 +36,7 @@ public class ExampleController {
         return ResponseEntity.ok(exampleResponse);
     }
 
-    @PostMapping
+    @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ExampleResponse> addNewConcert(@RequestBody ExampleCreateRequest exampleCreateRequest) {
         Example example = new Example(randomUUID().toString(),
                 exampleCreateRequest.getName());
@@ -46,6 +46,6 @@ public class ExampleController {
         exampleResponse.setId(example.getId());
         exampleResponse.setName(example.getName());
 
-        return ResponseEntity.created(URI.create("/example/" + exampleResponse.getId())).body(exampleResponse);
+        return ResponseEntity.created(URI.create("/example/add/" + exampleResponse.getId())).body(exampleResponse);
     }
 }

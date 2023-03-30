@@ -4,18 +4,22 @@
     <script type="text/javascript" src="examplePage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <base href="/" />
 </head>
 <body class="background">
 <header class="header" id="header">
     <div class="site-title">
         <a class="header_home" href="index.html">Example App</a>
     </div>
+    <div>
+        <a href="movie.html">Go to Movies Page</a>
+    </div>
 </header>
 <div class="card">
     <h2>Create Example</h2>
     <form class="card-content" id="create-form">
         <p class="form-field">
-            <label>Name</label>
+            <label for="create-name-field">Name</label>
             <input type="text" required class="validated-field" id="create-name-field">
         </p>
         <button type="submit">Create</button>

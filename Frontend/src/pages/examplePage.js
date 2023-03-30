@@ -82,7 +82,7 @@ class ExamplePage extends BaseClass {
  */
 const main = async () => {
     const examplePage = new ExamplePage();
-    examplePage.mount();
+    await examplePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

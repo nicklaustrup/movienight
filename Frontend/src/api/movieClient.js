@@ -9,11 +9,11 @@ import axios from 'axios'
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
  * https://javascript.info/mixins
  */
-export default class ExampleClient extends BaseClass {
+export default class MovieClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getExample', 'createExample'];
+        const methodsToBind = ['clientLoaded', 'getMovie', 'createMovie', 'getAllMovies'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,28 +31,38 @@ export default class ExampleClient extends BaseClass {
     }
 
     /**
-     * Gets the concert for the given ID.
-     * @param id Unique identifier for a concert
+     * Gets the movie for the given ID.
+     * @param movieId Unique identifier for a movie
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    async getExample(id, errorCallback) {
+    async getMovie(movieId, errorCallback) {
         try {
-            const response = await this.client.get(`/example/${id}`);
+            const response = await this.client.get(`/movie/${movieId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("getMovie", error, errorCallback)
+        }
+    }
+    async getAllMovies(errorCallback) {
+        try {
+            const response = await this.client.get(`/movie/all`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getMovie", error, errorCallback)
         }
     }
 
-    async createExample(name, errorCallback) {
+    async createMovie(title, description, errorCallback) {
         try {
-            const response = await this.client.post(`/example/add/`, {
-                name: name
+            const response = await this.client.post(`/movie`, {
+                title: title,
+                description: description
             });
+            console.log("movieClient createMovie success");
             return response.data;
         } catch (error) {
-            this.handleError("createExample", error, errorCallback);
+            this.handleError("createMovie", error, errorCallback);
         }
     }
 

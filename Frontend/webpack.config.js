@@ -15,6 +15,7 @@ module.exports = {
     filename: '[name].js',
   },
   devServer: {
+    historyApiFallback: true,
     https: false,
     port: 8080,
     open: true,
