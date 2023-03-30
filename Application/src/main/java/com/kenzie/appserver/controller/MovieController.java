@@ -44,8 +44,8 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieResponse> addNewMovie(@RequestBody MovieCreateRequest movieCreateRequest,
-                                                     UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<MovieResponse> addNewMovie(@RequestBody MovieCreateRequest movieCreateRequest
+                                                     /*UriComponentsBuilder uriComponentsBuilder*/) {
         Movie movie = new Movie(randomUUID().toString(),
                 movieCreateRequest.getTitle(),
                 movieCreateRequest.getDescription());
@@ -57,12 +57,12 @@ public class MovieController {
         movieResponse.setDescription(movie.getDescription());
 
         // Build the URI using UriComponentsBuilder
-        URI location = uriComponentsBuilder
-                .path("/movie/{title}")
-                .buildAndExpand(movieResponse.getTitle())
-                .toUri();
-//        return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
-        return ResponseEntity.created(location).body(movieResponse);
+//        URI location = uriComponentsBuilder
+//                .path("/movie/{title}")
+//                .buildAndExpand(movieResponse.getTitle())
+//                .toUri();
+        return ResponseEntity.created(URI.create("/movie/" + movieResponse.getMovieId())).body(movieResponse);
+//        return ResponseEntity.created(location).body(movieResponse);
     }
 
     @GetMapping("/all")
