@@ -59,7 +59,6 @@ export default class MovieClient extends BaseClass {
                 title: title,
                 description: description
             });
-            console.log("movieClient createMovie success");
             return response.data;
         } catch (error) {
             this.handleError("createMovie", error, errorCallback);

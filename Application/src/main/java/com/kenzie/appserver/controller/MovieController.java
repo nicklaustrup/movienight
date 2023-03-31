@@ -6,8 +6,11 @@ import com.kenzie.appserver.controller.model.MovieResponse;
 import com.kenzie.appserver.repositories.model.MovieRecord;
 import com.kenzie.appserver.service.MovieService;
 import com.kenzie.appserver.service.model.Movie;
+import org.apache.http.client.utils.URIUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.util.UriEncoder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -41,7 +44,8 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieResponse> addNewMovie(@RequestBody MovieCreateRequest movieCreateRequest) {
+    public ResponseEntity<MovieResponse> addNewMovie(@RequestBody MovieCreateRequest movieCreateRequest,
+                                                     UriComponentsBuilder uriComponentsBuilder) {
         Movie movie = new Movie(randomUUID().toString(),
                 movieCreateRequest.getTitle(),
                 movieCreateRequest.getDescription());
@@ -51,9 +55,14 @@ public class MovieController {
         movieResponse.setMovieId(movie.getMovieId());
         movieResponse.setTitle(movie.getTitle());
         movieResponse.setDescription(movie.getDescription());
-        System.out.println("Post successful");
 
-        return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
+        // Build the URI using UriComponentsBuilder
+        URI location = uriComponentsBuilder
+                .path("/movie/{title}")
+                .buildAndExpand(movieResponse.getTitle())
+                .toUri();
+//        return ResponseEntity.created(URI.create("/movie/" + movieResponse.getTitle())).body(movieResponse);
+        return ResponseEntity.created(location).body(movieResponse);
     }
 
     @GetMapping("/all")
