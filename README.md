@@ -43,7 +43,7 @@ and start over.
 **>> For Unit tests and Code Coverage**
 * Open a terminal in Intelli J and run:
 ```
-run ./gradlew jacocoTestReport
+./gradlew jacocoTestReport
 ```
 * Reports will be recorded in:
 ```
