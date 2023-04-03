@@ -1,9 +1,12 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.repositories.UserRepository;
+import com.kenzie.appserver.repositories.model.MovieRecord;
 import com.kenzie.appserver.repositories.model.UserRecord;
 import com.kenzie.appserver.service.model.User;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -31,4 +34,11 @@ public class UserService {
         userRepository.save(userRecord);
         return user;
     }
+    public List<UserRecord> findAll() {
+        List<UserRecord> userFromBackend = (List<UserRecord>) userRepository
+                .findAll();
+
+        return userFromBackend;
+    }
+
 }
