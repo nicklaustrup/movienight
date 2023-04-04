@@ -21,7 +21,7 @@ class RSVPPage extends BaseClass {
         document.getElementById('get-rsvp-by-eventId-form').addEventListener('submit', this.getAllEventRSVPs);
         document.getElementById('get-rsvp-by-userId-eventId-form').addEventListener('submit', this.getRSVP);
         this.client = new RSVPClient();
-        this.renderRSVPs();
+
         this.dataStore.addChangeListener(this.renderRSVPs);
 
     }
@@ -30,16 +30,24 @@ class RSVPPage extends BaseClass {
 
     async renderRSVPs() {
         let resultArea = document.getElementById("get-rsvp-table-body");
+        let displayArea = document.getElementById("view-rsvp-details");
+
         let rsvpHTML = "";
 
         const rsvps = this.dataStore.get("rsvps");
 
+        const users = rsvps.users;
+
         if (rsvps) {
-                for (let rsvp of rsvps) {
+            displayArea.innerHTML= `
+            <h3>${rsvps.eventTitle}</h3>
+            <h2>${rsvps.title}</h2>`
+
+                for (let user of users) {
                     rsvpHTML += `<tr class="get-rsvp-row">
-                <td>${rsvp.userId}</td>
-                <td>${rsvp.eventId}</td>
-                <td>${rsvp.isAttending}</td>
+                <td>${user.firstName} ${user.lastName}</td>
+                <td>${user.userId}</td>
+                <td>${user.isAttending}</td>
                 <td><button type="submit">Update</button></td>
                 </tr>`
                 }
@@ -71,7 +79,7 @@ class RSVPPage extends BaseClass {
         let eventId = document.getElementById("get-all-rsvp-by-eventId-field").value;
         this.dataStore.set("rsvps", null);
 
-        let result = await this.client.getAllEventRSVPs(eventId, this.errorHandler);
+        let result = this.client.getAllEventRSVPs(eventId, this.errorHandler);
         this.dataStore.set("rsvps", result);
         if (result) {
             this.showMessage(`Got All RSVPs for Event!`);

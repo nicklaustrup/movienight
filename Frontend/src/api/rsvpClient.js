@@ -48,7 +48,8 @@ export default class RSVPClient extends BaseClass {
     }
     async getAllEventRSVPs(eventId, errorCallback) {
         try {
-            const response = await this.client.get(`/rsvp/users/${eventId}`);
+            const response = await this.client.get(`/event/${eventId}`);
+            // const response = await this.client.get(`/rsvp/users/${eventId}`);
             return response.data;
         } catch (error) {
             this.handleError("getAllEventRSVPs", error, errorCallback)
