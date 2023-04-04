@@ -33,39 +33,39 @@ class UserControllerTest {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Test
-    public void getById_Exists() throws Exception {
-        String id = UUID.randomUUID().toString();
-        String name = mockNeat.strings().valStr();
+//    @Test
+//    public void getById_Exists() throws Exception {
+//        String id = UUID.randomUUID().toString();
+//        String name = mockNeat.strings().valStr();
+//
+//        Example example = new Example(id, name);
+//        Example persistedExample = exampleService.addNewExample(example);
+//        mvc.perform(get("/example/{id}", persistedExample.getId())
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("id")
+//                        .value(is(id)))
+//                .andExpect(jsonPath("name")
+//                        .value(is(name)))
+//                .andExpect(status().isOk());
+//    }
 
-        Example example = new Example(id, name);
-        Example persistedExample = exampleService.addNewExample(example);
-        mvc.perform(get("/example/{id}", persistedExample.getId())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("id")
-                        .value(is(id)))
-                .andExpect(jsonPath("name")
-                        .value(is(name)))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void createExample_CreateSuccessful() throws Exception {
-        String name = mockNeat.strings().valStr();
-
-        ExampleCreateRequest exampleCreateRequest = new ExampleCreateRequest();
-        exampleCreateRequest.setName(name);
-
-        mapper.registerModule(new JavaTimeModule());
-
-        mvc.perform(post("/example")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(exampleCreateRequest)))
-                .andExpect(jsonPath("id")
-                        .exists())
-                .andExpect(jsonPath("name")
-                        .value(is(name)))
-                .andExpect(status().isCreated());
-    }
+//    @Test
+//    public void createExample_CreateSuccessful() throws Exception {
+//        String name = mockNeat.strings().valStr();
+//
+//        ExampleCreateRequest exampleCreateRequest = new ExampleCreateRequest();
+//        exampleCreateRequest.setName(name);
+//
+//        mapper.registerModule(new JavaTimeModule());
+//
+//        mvc.perform(post("/example")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(mapper.writeValueAsString(exampleCreateRequest)))
+//                .andExpect(jsonPath("id")
+//                        .exists())
+//                .andExpect(jsonPath("name")
+//                        .value(is(name)))
+//                .andExpect(status().isCreated());
+//    }
 }

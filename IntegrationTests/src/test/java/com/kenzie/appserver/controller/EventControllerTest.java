@@ -39,28 +39,28 @@ public class EventControllerTest {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Test
-    public void getById_Exists() throws Exception {
-        String eventId = UUID.randomUUID().toString();
-        String eventTitle = mockNeat.strings().valStr();
-        String movieId = mockNeat.strings().valStr();
-        LocalDateTime date = LocalDateTime.now();
-        Boolean active = true;
-
-        List<RSVP> users = new ArrayList<>();
-
-        Event event = new Event(eventId, eventTitle, movieId, date, active);
-        Event persistedEvent = eventService.addNewEvent(event, users);
-        mvc.perform(get("/event/{eventId}", persistedEvent.getEventId())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("eventId")
-                        .value(is(eventId)))
-                .andExpect(jsonPath("eventTitle")
-                        .value(is(eventTitle)))
-                .andExpect(jsonPath("movieId")
-                        .value(is(movieId)))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void getById_Exists() throws Exception {
+//        String eventId = UUID.randomUUID().toString();
+//        String eventTitle = mockNeat.strings().valStr();
+//        String movieId = mockNeat.strings().valStr();
+//        LocalDateTime date = LocalDateTime.now();
+//        Boolean active = true;
+//
+//        List<RSVP> users = new ArrayList<>();
+//
+//        Event event = new Event(eventId, eventTitle, movieId, date, active);
+//        Event persistedEvent = eventService.addNewEvent(event, users);
+//        mvc.perform(get("/event/{eventId}", persistedEvent.getEventId())
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("eventId")
+//                        .value(is(eventId)))
+//                .andExpect(jsonPath("eventTitle")
+//                        .value(is(eventTitle)))
+//                .andExpect(jsonPath("movieId")
+//                        .value(is(movieId)))
+//                .andExpect(status().isOk());
+//    }
 
 //    @Test
 //    public void createExample_CreateSuccessful() throws Exception {

@@ -19,7 +19,7 @@ class EventAllPage extends BaseClass {
     async mount() {
         this.client = new EventClient();
         this.getAllEvents();
-        var userId = window.localStorage.getItem('userId'); //searches for the user name in localStorage
+        var userId = window.localStorage.getItem('userId'); //searches for the userId in localStorage
         this.getUser(userId);
         this.dataStore.addChangeListener(this.renderEvents);
         this.dataStore.addChangeListener(this.renderLogin)
@@ -34,14 +34,19 @@ class EventAllPage extends BaseClass {
 
         if (events) {
             for (let event of events){
-            eventHTML += `<tr>
-                <td>${event.date}</td>
-                <td>${event.eventTitle}</td>
-                <td>${event.title}</td>
-                <td><em><span style="color:#00FF00;"><strong>${event.active}</strong></span></em></td>
-                <td><input type="button" value="Update" /></td>
-                </tr>`
+                eventHTML += `<tr>
+                    <td>${event.date}</td>
+                    <td>${event.eventTitle}</td>
+                    <td>${event.title}</td>`;
+                if (event.active) {
+                    eventHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    }
+                else {
+                    eventHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
                 }
+                eventHTML +=`<td><input type="button" onclick="store_redirect('${event.eventId}')" value="Update" /></td>
+                    </tr>`;
+            }
             resultArea.innerHTML = eventHTML;
         } else {
             resultArea.innerHTML = "No Events";
