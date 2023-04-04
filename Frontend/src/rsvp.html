@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+<head>
+    <script type="text/javascript" src="rsvpPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">Movie Night</a>
+    </div>
+    <div>
+        <a href="index.html">Go to Example Page</a>
+    </div>
+    <div>
+        <a href="movie.html">Go to Movie Page</a>
+    </div>
+</header>
+<div class="card">
+    <h2>Get RSVP</h2>
+    <form class="card-content" id="get-rsvp-by-userId-eventId-form">
+        <p class="form-field">
+            <label for="get-rsvp-by-userId-field">Enter User Id</label>
+            <input type="text" required class="validated-field" id="get-rsvp-by-userId-field">
+            <label for="get-rsvp-by-userId-field">Enter Event Id</label>
+            <input type="text" required class="validated-field" id="get-rsvp-by-eventId-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Get All RSVPs for User</h2>
+    <form class="card-content" id="get-rsvp-by-userId-form">
+        <p class="form-field">
+            <label for="get-all-rsvp-by-userId-field">Enter User Id</label>
+            <input type="text" required class="validated-field" id="get-all-rsvp-by-userId-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>RSVPs for Event</h2>
+    <form class="card-content" id="get-rsvp-by-eventId-form">
+        <p class="form-field">
+            <label for="get-all-rsvp-by-eventId-field">Enter Event Id</label>
+            <input type="text" required class="validated-field" id="get-all-rsvp-by-eventId-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Update RSVP</h2>
+    <form class="card-content" id="update-rsvp-form">
+        <p class="form-field">
+            <label for="update-rsvpId-field">Enter RSVP Id</label>
+            <input type="text" required class="validated-field" id="update-rsvpId-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>RSVPs Found</h2>
+    <table class="rsvp-table">
+        <thead>
+        <tr>
+            <th style="width:25%">User Id</th>
+            <th style="width:25%">Event Id</th>
+            <th style="width:25%">RSVP Status</th>
+            <th style="width:25%">Update RSVP</th>
+        </tr>
+        </thead>
+        <tbody id="get-rsvp-table-body">
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

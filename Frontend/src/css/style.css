@@ -87,3 +87,25 @@
 .state.active {
     display: block;
 }
+
+.rsvp-table {
+    width: 100%;
+    align-content: center;
+    border-style: solid;
+}
+
+#get-rsvp-table-body {
+    align-content: center;
+    width: auto;
+    text-align: center;
+    border: 1px solid black;
+}
+
+td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+
+

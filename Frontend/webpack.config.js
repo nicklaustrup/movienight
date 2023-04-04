@@ -15,6 +15,8 @@ module.exports = {
     eventsPage: path.resolve(__dirname, 'src', 'pages', 'eventsPage.js'),
     eventPage: path.resolve(__dirname, 'src', 'pages', 'eventPage.js'),
     eventcreatePage: path.resolve(__dirname, 'src', 'pages', 'eventcreatePage.js'),
+    rsvpPage: path.resolve(__dirname, 'src', 'pages', 'rsvpPage.js'),
+    updateRsvpPage: path.resolve(__dirname, 'src', 'pages', 'updateRsvpPage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -66,6 +68,16 @@ module.exports = {
       template: './src/eventcreate.html',
       filename: 'eventcreate.html',
       inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/updatersvp.html',
+      filename: 'updatersvp.html',
+      inject: false
+    }),
+      new HtmlWebpackPlugin({
+        template: './src/rsvp.html',
+        filename: 'rsvp.html',
+        inject: false
     }),
     new CopyPlugin({
       patterns: [
