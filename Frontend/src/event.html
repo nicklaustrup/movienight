@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="eventsPage.js"></script>
+    <script type="text/javascript" src="eventPage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <base href="/" />
@@ -23,27 +23,22 @@
     </tbody>
 </table>
 <div class="card" id="events">
-    <h2>List of upcoming movie events:</h2>
+    <h2>Event:</h2>
 
-    <table border="1" cellpadding="1" cellspacing="1" style="width:1000px;">
+    <form class="card-content" id="update-form">
+    </form>
+    <button type="submit">Update</button>
+    <p>RSVP List:</p>
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
         <thead>
         <tr>
-            <th scope="col">Date - Time</th>
-            <th scope="col">Title</th>
-            <th scope="col">Movie</th>
-            <th scope="col">Active</th>
-            <th scope="col">&nbsp;</th>
+            <th scope="col">Name</th>
+            <th scope="col">RSVP?</th>
         </tr>
         </thead>
-        <tbody id="events-info">
+        <tbody id="RSVP">
         </tbody>
     </table>
-    <script>
-    function store_redirect(eventId){ //stores items in the localStorage
-        window.localStorage.setItem('eventId', eventId);
-        window.location.href="event.html";
-    }
-    </script>
 </div>
 </body>
 </html>
