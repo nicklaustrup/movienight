@@ -13,7 +13,7 @@ export default class RSVPClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getRSVP', 'getAllEventRSVPs', 'getAllUserRSVPs'];
+        const methodsToBind = ['clientLoaded', 'getRSVP', 'getAllEventRSVPs', 'getAllUserRSVPs', 'getUser'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -58,6 +58,14 @@ export default class RSVPClient extends BaseClass {
     async getAllUserRSVPs(userId, errorCallback) {
         try {
             const response = await this.client.get(`/rsvp/events/${userId}`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getAllEventRSVPs", error, errorCallback)
+        }
+    }
+    async getUser(userId, errorCallback) {
+        try {
+            const response = await this.client.get(`/user/${userId}`);
             return response.data;
         } catch (error) {
             this.handleError("getAllEventRSVPs", error, errorCallback)

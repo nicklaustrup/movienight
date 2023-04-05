@@ -9,7 +9,7 @@ class RSVPPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getAllEventRSVPs', 'getAllUserRSVPs', 'getRSVP', 'renderRSVPs'], this);
+        this.bindClassMethods(['getAllEventRSVPs', 'getAllUserRSVPs', 'renderUserEvents', 'renderEventUsers'], this);
         this.dataStore = new DataStore();
     }
 
@@ -22,13 +22,13 @@ class RSVPPage extends BaseClass {
         document.getElementById('get-rsvp-by-userId-eventId-form').addEventListener('submit', this.getRSVP);
         this.client = new RSVPClient();
 
-        this.dataStore.addChangeListener(this.renderRSVPs);
+        this.dataStore.addChangeListener();
 
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderRSVPs() {
+    async renderEventUsers() {
         let resultArea = document.getElementById("get-rsvp-table-body");
         let displayArea = document.getElementById("view-rsvp-details");
 
@@ -40,50 +40,64 @@ class RSVPPage extends BaseClass {
 
         if (rsvps) {
             displayArea.innerHTML= `
-            <h3>${rsvps.eventTitle}</h3>
-            <h2>${rsvps.title}</h2>`
+            <h2>${rsvps.eventTitle}</h2>
+            <h3>${rsvps.title}</h3>
+            <h4>${rsvps.description}</h4>
+            <P>${rsvps.date}</P>`;
 
-                for (let user of users) {
-                    rsvpHTML += `<tr class="get-rsvp-row">
+            for (let user of users) {
+                rsvpHTML += `<tr class="get-rsvp-row">
+                <td>${user.eventId}</td>
                 <td>${user.firstName} ${user.lastName}</td>
-                <td>${user.userId}</td>
-                <td>${user.isAttending}</td>
+                <td>${user.attending}</td>
                 <td><button type="submit">Update</button></td>
                 </tr>`
-                }
+            }
+
             resultArea.innerHTML = rsvpHTML;
         } else {
             resultArea.innerHTML = "No RSVPs found!";
         }
     }
-    async renderGetRSVP() {
+
+    async renderUserEvents() {
         let resultArea = document.getElementById("get-rsvp-table-body");
+        let displayArea = document.getElementById("view-rsvp-details");
         let rsvpHTML = "";
 
-        const rsvp = this.dataStore.get("rsvp");
+        const rsvps = this.dataStore.get("rsvps");
+        const user = this.dataStore.get("user");
 
-        if (rsvp) {
-            rsvpHTML += `<tr class="get-rsvp-row">
-                <td>${rsvp.userId}</td>
+        if (user) {
+            displayArea.innerHTML = `
+            <h2>${user.firstName} ${user.lastName}</h2>
+            <h4>${user.userId}</h4>`;
+
+            for (let rsvp of rsvps) {
+                rsvpHTML += `<tr class="get-rsvp-row">
                 <td>${rsvp.eventId}</td>
-                <td>${rsvp.isAttending}</td>
+                <td>${rsvp.eventTitle}</td>
+                <td>${rsvp.title}</td>
                 <td><button type="submit">Update</button></td>
-                </tr>`
+                </tr>`;
             }
-        resultArea.innerHTML = rsvpHTML;
+            resultArea.innerHTML = rsvpHTML;
+        }
     }
     // Event Handlers --------------------------------------------------------------------------------------------------
 
     async getAllEventRSVPs(event) {
         event.preventDefault();
         let eventId = document.getElementById("get-all-rsvp-by-eventId-field").value;
-        this.dataStore.set("rsvps", null);
+        // this.dataStore.set("rsvps", null);
 
-        let result = this.client.getAllEventRSVPs(eventId, this.errorHandler);
+        let result = await this.client.getAllEventRSVPs(eventId, this.errorHandler);
         this.dataStore.set("rsvps", result);
+
+
         if (result) {
             this.showMessage(`Got All RSVPs for Event!`);
-            this.renderRSVPs();
+            this.renderEventUsers();
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
@@ -105,9 +119,12 @@ class RSVPPage extends BaseClass {
         let result = await this.client.getAllUserRSVPs(userId, this.errorHandler);
         this.dataStore.set("rsvps", result);
 
+        let user = await this.client.getUser(userId, this.errorHandler);
+        this.dataStore.set("user", user);
+
         if (result) {
             this.showMessage(`Got RSVP!`)
-            this.renderRSVPs();
+            this.renderUserEvents();
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }

@@ -1,11 +1,17 @@
 package com.kenzie.appserver.controller;
 
-import com.kenzie.appserver.controller.model.RSVPCreateRequest;
-import com.kenzie.appserver.controller.model.RSVPResponse;
+import com.kenzie.appserver.controller.model.*;
+import com.kenzie.appserver.repositories.model.EventRecord;
 import com.kenzie.appserver.repositories.model.RSVPCompositeId;
 import com.kenzie.appserver.repositories.model.RSVPRecord;
+import com.kenzie.appserver.service.EventService;
+import com.kenzie.appserver.service.MovieService;
 import com.kenzie.appserver.service.RSVPService;
+import com.kenzie.appserver.service.UserService;
+import com.kenzie.appserver.service.model.Event;
+import com.kenzie.appserver.service.model.Movie;
 import com.kenzie.appserver.service.model.RSVP;
+import com.kenzie.appserver.service.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +24,22 @@ import java.util.*;
 @RequestMapping("/rsvp")
 public class RSVPController {
 
-    @Autowired
-    private RSVPService rsvpService;
 
-    RSVPController(RSVPService rsvpService) {
+    private RSVPService rsvpService;
+    private UserService userService;
+    private EventService eventService;
+    private MovieService movieService;
+
+    RSVPController(RSVPService rsvpService, UserService userService, EventService eventService, MovieService movieService) {
         this.rsvpService = rsvpService;
+        this.userService = userService;
+        this.eventService = eventService;
+        this.movieService = movieService;
     }
 
     @GetMapping("/{userId}_{eventId}")
     public ResponseEntity<RSVPResponse> getUsersEvents(@PathVariable("userId") String userId,
-                                            @PathVariable("eventId") String eventId) {
+                                                       @PathVariable("eventId") String eventId) {
 
         RSVPCompositeId record = new RSVPCompositeId();
         record.setUserId(userId);
@@ -71,7 +83,7 @@ public class RSVPController {
         //Create a list for all users invited to an event
         List<RSVPResponse> usersForEventResponse = new ArrayList<>();
 
-        for (RSVPRecord rsvp:rsvpList) {
+        for (RSVPRecord rsvp : rsvpList) {
             if (rsvp.getEventId().equals(eventId)) {
                 RSVPResponse rsvpResponse = new RSVPResponse();
                 rsvpResponse.setUserId(rsvp.getUserId());
@@ -86,24 +98,35 @@ public class RSVPController {
 
     //Get all Events a User is invited to
     @GetMapping("/events/{userId}")
-    public ResponseEntity<List<RSVPResponse>> getAllEventsForUser(@PathVariable("userId") String userId) {
+    public ResponseEntity<List<EventResponse>> getAllEventsForUser(@PathVariable("userId") String userId) {
 
         //create a list of RSVPs
         List<RSVPRecord> rsvpList = rsvpService.findAll();
 
         //Create a list for all users invited to an event
-        List<RSVPResponse> eventsForUserResponse = new ArrayList<>();
+        List<EventResponse> eventResponseList = new ArrayList<>();
 
-        for (RSVPRecord rsvp:rsvpList) {
+        for (RSVPRecord rsvp : rsvpList) {
             if (rsvp.getUserId().equals(userId)) {
-                RSVPResponse rsvpResponse = new RSVPResponse();
-                rsvpResponse.setUserId(rsvp.getUserId());
-                rsvpResponse.setEventId(rsvp.getEventId());
-                rsvpResponse.setIsAttending(rsvp.getIsAttending());
-                eventsForUserResponse.add(rsvpResponse);
+                Event event = eventService.findById(rsvp.getEventId());
+
+                EventResponse eventResponse = new EventResponse();
+                eventResponse.setEventId(event.getEventId());
+                eventResponse.setEventTitle(event.getEventTitle());
+                eventResponse.setMovieId(event.getMovieId());
+                eventResponse.setDate(event.getDate());
+                eventResponse.setActive(event.getActive());
+
+                //get movie details
+                Movie movie = movieService.findById(event.getMovieId());
+                if (movie == null) {
+                    return ResponseEntity.notFound().build();
+                }
+                eventResponse.setTitle(movie.getTitle());
+                eventResponse.setDescription(movie.getDescription());
+                eventResponseList.add(eventResponse);
             }
         }
-
-        return ResponseEntity.ok(eventsForUserResponse);
+        return ResponseEntity.ok(eventResponseList);
     }
 }
