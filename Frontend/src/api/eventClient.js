@@ -13,7 +13,7 @@ export default class EventClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getEvent', 'getUser'];
+        const methodsToBind = ['clientLoaded', 'getEvent', 'getUser', 'getMovies', 'updateEvent'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -54,6 +54,30 @@ export default class EventClient extends BaseClass {
              this.handleError("getUser", error, errorCallback)
          }
      }
+
+     async getMovies(errorCallback) {
+         try {
+             const response = await this.client.get(`/movie/all`);
+             return response.data;
+         } catch (error) {
+             this.handleError("getMovies", error, errorCallback)
+         }
+     }
+
+    async updateEvent(eventId, eventTitle, movieId, date, active, errorCallback) {
+        try {
+            const response = await this.client.put(`/event`, {
+                eventId: eventId,
+                eventTitle: eventTitle,
+                movieId: movieId,
+                date: date,
+                active: active
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("updateEvent", error, errorCallback);
+        }
+    }
 
     /**
      * Helper method to log the error and run any error functions.
