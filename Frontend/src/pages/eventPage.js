@@ -9,7 +9,7 @@ class EventPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getEvent', 'getUser', 'renderEvent', 'renderLogin'], this);
+        this.bindClassMethods(['getEvent', 'getUser', 'getMovies', 'renderEvent', 'renderLogin',  'onUpdate'], this);
         this.dataStore = new DataStore();
     }
 
@@ -22,41 +22,40 @@ class EventPage extends BaseClass {
         var eventId = window.localStorage.getItem('eventId'); //searches for the eventId in localStorage
         this.getUser(userId);
         this.getEvent(eventId);
+        this.getMovies();
         this.dataStore.addChangeListener(this.renderEvent);
-        this.dataStore.addChangeListener(this.renderLogin)
+        this.dataStore.addChangeListener(this.renderLogin);
+        document.getElementById('update-form').addEventListener('submit', this.onUpdate);
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async renderEvent() {
-        let resultArea = document.getElementById("update-form");
+        let resultMovie = document.getElementById("movie");
         const event = this.dataStore.get("event");
+        const movies = this.dataStore.get("movies");
+        let movieHTML = "";
         if (event) {
-            resultArea.innerHTML = `
-                <p class="form-field">
-                    <input type="hidden" required class="validated-field" id="update-eventId-field" value="${event.eventId}">
-                </p>
-                <p class="form-field">
-                    <label for="update-eventTitle-field">Title</label>
-                    <input type="text" required class="validated-field" id="update-eventTitle-field" value="${event.eventTitle}">
-                </p>
-                <p class="form-field">
-                    <label for="update-eventMovieId-field">Movie Id</label>
-                    <input type="text" required class="validated-field" id="update-eventMovieId-field" value="${event.movieId}">
-                </p>
-                <p class="form-field">
-                    <label for="update-eventTitle-field">Movie Title</label>
-                    <input type="text" required class="validated-field" id="update-eventTitle-field" value="${event.title}">
-                </p>
-                <p class="form-field">
-                    <label for="update-eventDate-field">Date</label>
-                    <input type="text" required class="validated-field" id="update-eventDate-field" value="${event.date}">
-                </p>
-                <p class="form-field">
-                    <label for="update-eventActive-field">Active</label>
-                    <input type="text" required class="validated-field" id="update-eventActive-field" value="${event.active}">
-                </p>
-            `;
+            //Setting the values for all the inputs using the response returned by getEvent
+            document.getElementById('eventId').value= event.eventId;
+            document.getElementById('eventTitle').value= event.eventTitle;
+            document.getElementById('movieId').value= event.movieId;
+            document.getElementById('title').value= event.title;
+            document.getElementById('date').value= event.date;
+            if (event.active) {
+               document.getElementById('active_round_yes').checked=true;
+            }
+            else {
+                document.getElementById('active_round_no').checked=true;
+            };
+
+            for (let movie of movies) {
+                if (movie.id === event.movieId)
+                    movieHTML += `<option value="${movie.movieId}" selected>${movie.title}</option>`
+                else
+                    movieHTML += `<option value="${movie.movieId}">${movie.title}</option>`
+            };
+            resultMovie.innerHTML = movieHTML;
             let resultRSVP = document.getElementById("RSVP");
             let rsvpHTML = "";
             for (let rsvp of event.users){
@@ -70,8 +69,6 @@ class EventPage extends BaseClass {
                 }
             }
             resultRSVP.innerHTML = rsvpHTML;
-        } else {
-            resultRSVP.innerHTML = "No RSVP";
         }
     }
     async renderLogin() {
@@ -107,6 +104,39 @@ class EventPage extends BaseClass {
             this.showMessage(`Got User!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
+
+    async getMovies() {
+        let result = await this.client.getMovies(this.errorHandler);
+        this.dataStore.set("movies", result);
+        if (result) {
+            this.showMessage(`Got Movies!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
+
+    async onUpdate(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+        this.dataStore.set("event", null);
+
+        // Gathering the values from all the inputs in the form
+        let eventId = document.getElementById("eventId").value;
+        let eventTitle = document.getElementById("eventTitle").value;
+        let movieId = document.getElementById("movieId").value;
+//        let movieId = document.getElementById("movie").value;
+        let date = document.getElementById("date").value;
+        var activeRadioButtons = document.getElementsByName('active_round');
+        let active = activeRadioButtons[0].checked; //checks the first radio button which is Yes
+        const updatedEvent = await this.client.updateEvent(eventId, eventTitle, movieId, date, active, this.errorHandler);
+        this.dataStore.set("event", updatedEvent);
+
+        if (updatedEvent) {
+            this.showMessage(`Updated event ${updatedEvent.eventId}!`)
+        } else {
+            this.errorHandler("Error updating!  Try again...");
         }
     }
 }

@@ -162,6 +162,31 @@ public class EventController {
 
         EventResponse eventResponse = createEventResponse(event);
 
+        //get movie and user details
+        Movie movie = movieService.findById(event.getMovieId());
+        if (movie == null) {
+            return ResponseEntity.notFound().build();
+        }
+        eventResponse.setTitle(movie.getTitle());
+        eventResponse.setDescription(movie.getDescription());
+
+        //create a list of RSVPs
+        List<RSVPRecord> rsvpList = rsvpService.findAll();
+
+        //Create a list for all users invited to an event
+        List<RSVPUser> usersForEvent = new ArrayList<>();
+        for (RSVPRecord rsvpRecord:rsvpList) {
+            if (rsvpRecord.getEventId().equals(event.getEventId())) {
+                User user = userService.findById(rsvpRecord.getUserId());
+                if (user == null) {
+                    return ResponseEntity.notFound().build();
+                }
+                RSVPUser rsvpUser = new RSVPUser(rsvpRecord.getUserId(), rsvpRecord.getEventId(),user.getFirstName(), user.getLastName(),rsvpRecord.getIsAttending());
+                usersForEvent.add(rsvpUser);
+            }
+        }
+        eventResponse.setUsers(usersForEvent);
+
         return ResponseEntity.ok(eventResponse);
     }
     private EventResponse createEventResponse(Event event) {

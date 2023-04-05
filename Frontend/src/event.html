@@ -26,8 +26,38 @@
     <h2>Event:</h2>
 
     <form class="card-content" id="update-form">
+        <p class="form-field">
+            <input type="hidden" required class="validated-field" id="eventId">
+        </p>
+        <p class="form-field">
+            <label for="eventTitle">Title</label>
+            <input type="text" required class="validated-field" id="eventTitle">
+        </p>
+        <p class="form-field">
+            <label for="movieId">Movie Id</label>
+            <input type="text" required class="validated-field" id="movieId">
+        </p>
+        <p class="form-field">
+            <label for="title">Movie Title</label>
+            <input type="text" required class="validated-field" id="title">
+        </p>
+        <p class="form-field">
+            <label for="movie">Movie</label>
+            <select id="movie">
+            </select>
+        </p>
+        <p class="form-field">
+            <label for="date">Date</label>
+            <input type="text" required class="validated-field" id="date">
+        </p>
+        <p class="form-field">
+            <label>Active</label>
+        </p>
+        <input type="radio" name="active_round" id="active_round_yes">Yes</input>
+        <input type="radio" name="active_round" id="active_round_no">No</input>
+        <br>
+        <button type="submit">Update</button>
     </form>
-    <button type="submit">Update</button>
     <p>RSVP List:</p>
     <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
         <thead>
