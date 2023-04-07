@@ -9,7 +9,7 @@ class EventPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getEvent', 'getUser', 'getMovies', 'renderEvent', 'renderLogin',  'onUpdate'], this);
+        this.bindClassMethods(['getEvent', 'getUser', 'getMovies', 'renderEvent', 'renderLogin', 'onUpdate'], this);
         this.dataStore = new DataStore();
     }
 
@@ -39,8 +39,6 @@ class EventPage extends BaseClass {
             //Setting the values for all the inputs using the response returned by getEvent
             document.getElementById('eventId').value= event.eventId;
             document.getElementById('eventTitle').value= event.eventTitle;
-            document.getElementById('movieId').value= event.movieId;
-            document.getElementById('title').value= event.title;
             document.getElementById('date').value= event.date;
             if (event.active) {
                document.getElementById('active_round_yes').checked=true;
@@ -51,9 +49,9 @@ class EventPage extends BaseClass {
 
             for (let movie of movies) {
                 if (movie.id === event.movieId)
-                    movieHTML += `<option value="${movie.movieId}" selected>${movie.title}</option>`
+                    movieHTML += `<option id="${movie.id}" selected>${movie.title}</option>`
                 else
-                    movieHTML += `<option value="${movie.movieId}">${movie.title}</option>`
+                    movieHTML += `<option id="${movie.id}">${movie.title}</option>`
             };
             resultMovie.innerHTML = movieHTML;
             let resultRSVP = document.getElementById("RSVP");
@@ -71,6 +69,7 @@ class EventPage extends BaseClass {
             resultRSVP.innerHTML = rsvpHTML;
         }
     }
+
     async renderLogin() {
         let resultArea = document.getElementById("login");
         const user = this.dataStore.get("user");
@@ -125,12 +124,15 @@ class EventPage extends BaseClass {
         // Gathering the values from all the inputs in the form
         let eventId = document.getElementById("eventId").value;
         let eventTitle = document.getElementById("eventTitle").value;
-        let movieId = document.getElementById("movieId").value;
-//        let movieId = document.getElementById("movie").value;
+        var movie = document.getElementById("movie");
+        var movieId = movie.options[movie.selectedIndex].id;
         let date = document.getElementById("date").value;
         var activeRadioButtons = document.getElementsByName('active_round');
         let active = activeRadioButtons[0].checked; //checks the first radio button which is Yes
+
+        //Submits all the information in order to update the record
         const updatedEvent = await this.client.updateEvent(eventId, eventTitle, movieId, date, active, this.errorHandler);
+
         this.dataStore.set("event", updatedEvent);
 
         if (updatedEvent) {
@@ -145,8 +147,8 @@ class EventPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const eventsPage = new EventPage();
-    await eventsPage.mount();
+    const eventPage = new EventPage();
+    await eventPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

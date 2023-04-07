@@ -2,9 +2,10 @@
 <html lang="en-US">
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-  <script type="text/javascript" src="usersPage.js"></script>
+  <script type="text/javascript" src="eventcreatePage.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <base href="/" />
 </head>
 <body class="background">
 <header class="header" id="header">
@@ -26,19 +27,36 @@
   </tr>
   </tbody>
 </table>
-<div class="card">
-  <h2>List of Users</h2>
-  <table border="1" cellpadding="1" cellspacing="1" style="width:600px;">
-    <thead>
-    <tr>
-      <th scope="col">User Id</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-    </tr>
-    </thead>
-    <tbody id="users-info">
-    </tbody>
-  </table>
+<div class="card" id="events">
+  <h2>Create Event</h2>
+  <form class="card-content" id="create-form">
+    <p class="form-field">
+      <label for="eventTitle">Title</label>
+      <input type="text" required class="validated-field" id="eventTitle">
+    </p>
+    <p class="form-field">
+      <label for="movie">Movie</label>
+      <select id="movie">
+      </select>
+    </p>
+    <p class="form-field">
+      <label for="date">Date</label>
+      <input type="text" required class="validated-field" id="date">
+    </p>
+    <p>RSVP List</p>
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Invite?</th>
+      </tr>
+      </thead>
+      <tbody id="RSVP">
+      </tbody>
+    </table>
+    <br>
+    <button type="submit">Create</button>
+  </form>
 </div>
 </body>
 </html>

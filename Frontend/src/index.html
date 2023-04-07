@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-    <script type="text/javascript" src="examplePage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <base href="/" />
@@ -9,37 +9,24 @@
 <body class="background">
 <header class="header" id="header">
     <div class="site-title">
-        <a class="header_home" href="index.html">Example App</a>
-    </div>
-    <div>
-        <a href="movie.html">Go to Movies Page</a>
-        <a href="users.html">Go to Users Page</a>
+        <a class="header_home" href="index.html">RSVP App</a>
     </div>
 </header>
-<div class="card">
-    <h2>Create Example</h2>
-    <form class="card-content" id="create-form">
-        <p class="form-field">
-            <label for="create-name-field">Name</label>
-            <input type="text" required class="validated-field" id="create-name-field">
-        </p>
-        <button type="submit">Create</button>
-    </form>
+<div class="card" id="login">
+    <h2>Login:</h2>
+    <label for="userId" >User ID: </label>
+    <input type="text" id="userId" placeholder="User ID" required autofocus><br>
+    <label for="password" >Password: </label>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button id="storeUsername" onclick="store_redirect()">Sign In</button>
+    <script>
+function store_redirect(){ //stores items in the localStorage
+    var username = document.getElementById('userId').value;
+    localStorage.clear();
+    window.localStorage.setItem('userId', username);
+    window.location.href="events.html"; //it should be changed to the rsvp page eventually since that should be the default one
+}
+</script>
 </div>
-<div class="card">
-    <h2>Get By ID</h2>
-    <form class="card-content" id="get-by-id-form">
-        <p class="form-field">
-            <label>ID</label>
-            <input type="text" required class="validated-field" id="id-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card" id="result">
-    <h2>Result:</h2>
-    <p id="result-info"></p>
-</div>
-
 </body>
 </html>

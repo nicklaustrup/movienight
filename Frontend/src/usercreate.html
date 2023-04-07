@@ -2,15 +2,15 @@
 <html lang="en-US">
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-  <script type="text/javascript" src="usersPage.js"></script>
+  <script type="text/javascript" src="usercreatePage.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body class="background">
 <header class="header" id="header">
-  <div class="site-title">
-    <a class="header_home" href="index.html">Movie Night</a>
-  </div>
+    <div class="site-title">
+        <a class="header_home" href="index.html">Movie Night</a>
+    </div>
 </header>
 <table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
   <tbody>
@@ -27,18 +27,18 @@
   </tbody>
 </table>
 <div class="card">
-  <h2>List of Users</h2>
-  <table border="1" cellpadding="1" cellspacing="1" style="width:600px;">
-    <thead>
-    <tr>
-      <th scope="col">User Id</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-    </tr>
-    </thead>
-    <tbody id="users-info">
-    </tbody>
-  </table>
+    <h2>Create User</h2>
+    <form class="card-content" id="create-user-form">
+        <p class="form-field">
+            <label for="create-firstName-field">First Name</label>
+            <input type="text" required class="validated-field" id="create-firstName-field">
+        </p>
+        <p class="form-field">
+            <label for="create-lastName-field">Last Name</label>
+            <input type="text" required class="validated-field" id="create-lastName-field">
+        </p>
+        <button type="submit">Create</button>
+    </form>
 </div>
 </body>
 </html>
