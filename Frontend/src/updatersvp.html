@@ -11,70 +11,67 @@
     <div class="site-title">
         <a class="header_home" href="index.html">Movie Night</a>
     </div>
-    <div>
-        <a href="index.html">Go to Example Page</a>
-    </div>
-    <div>
-        <a href="movie.html">Go to Movie Page</a>
-    </div>
 </header>
-<div class="card">
-    <h2>Get RSVP</h2>
-    <form class="card-content" id="get-rsvp-by-userId-eventId-form">
-        <p class="form-field">
-            <label for="get-rsvp-by-userId-field">Enter User Id</label>
-            <input type="text" required class="validated-field" id="get-rsvp-by-userId-field">
-            <label for="get-rsvp-by-userId-field">Enter Event Id</label>
-            <input type="text" required class="validated-field" id="get-rsvp-by-eventId-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
-    <h2>Get All RSVPs for User</h2>
-    <form class="card-content" id="get-rsvp-by-userId-form">
-        <p class="form-field">
-            <label for="get-all-rsvp-by-userId-field">Enter User Id</label>
-            <input type="text" required class="validated-field" id="get-all-rsvp-by-userId-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
-    <h2>RSVPs for Event</h2>
-    <form class="card-content" id="get-rsvp-by-eventId-form">
-        <p class="form-field">
-            <label for="get-all-rsvp-by-eventId-field">Enter Event Id</label>
-            <input type="text" required class="validated-field" id="get-all-rsvp-by-eventId-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
-    <h2>Update RSVP</h2>
-    <form class="card-content" id="update-rsvp-form">
-        <p class="form-field">
-            <label for="update-rsvpId-field">Enter RSVP Id</label>
-            <input type="text" required class="validated-field" id="update-rsvpId-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
-    <h2>RSVPs Found</h2>
-    <table class="rsvp-table">
-        <thead>
+    <table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
+        <tbody>
         <tr>
-            <th style="width:25%">User Id</th>
-            <th style="width:25%">Event Id</th>
-            <th style="width:25%">RSVP Status</th>
-            <th style="width:25%">Update RSVP</th>
+            <td style="text-align: center;"><a href="rsvp.html">RSVP</a></td>
+            <td style="text-align: center;"><a href="updatersvp.html">UPDATE RSVP</a></td>
+            <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
+            <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
+            <td style="text-align: center;"><a href="movie.html">MOVIES</a></td>
+            <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
+            <td style="text-align: center;"><a href="users.html">USERS</a></td>
+            <td style="text-align: right;"><a href="index.html" id="login"></a></td>
         </tr>
-        </thead>
-        <tbody id="get-rsvp-table-body">
         </tbody>
     </table>
+<div class="card">
+    <h2>Update RSVP</h2>
+    <form class="card-content" id="get-rsvp-form">
+        <p class="form-field">
+        <p>
+            <label for="get-rsvp-by-userId-field">Enter User Id</label>
+            <input type="text" required class="validated-field" id="get-rsvp-by-userId-field">
+        </p>
+        <p> <label for="get-rsvp-by-userId-field">Enter Event Id</label>
+            <input type="text" required class="validated-field" id="get-rsvp-by-eventId-field">
+        </p>
+    </form>
+    <form class="card-content" id="update-rsvp-form">
+        <p class="form-field">
+            <input type="hidden" required class="validated-field" id="eventId">
+        </p>
+        <p class="form-field">
+            <label>Attending:</label>
+        </p>
+        <input type="radio" name="active_round" id="active_round_yes">Yes</input>
+        <input type="radio" name="active_round" id="active_round_no">No</input>
+        <br>
+        <p>
+        <button type="submit">Update</button>
+        </p>
+    </form>
 </div>
+
+<div class="card">
+    <h2>EVENT DETAILS</h2>
+    <p id="update-rsvp-event-details"></p>
+    <br>
+    RSVP List
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
+        <thead>
+        <tr>
+            <th style="width:25%">NAME</th>
+            <th style="width:25%">ATTENDING</th>
+        </tr>
+        </thead>
+        <tbody id="update-rsvp-table-body">
+        </tbody>
+    </table>
+
+</div>
+
 
 </body>
 </html>

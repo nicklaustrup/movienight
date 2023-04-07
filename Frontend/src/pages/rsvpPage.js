@@ -114,7 +114,6 @@ class RSVPPage extends BaseClass {
         event.preventDefault();
 
         let userId = document.getElementById("get-all-rsvp-by-userId-field").value;
-        this.dataStore.set("rsvps", null);
 
         let result = await this.client.getAllUserRSVPs(userId, this.errorHandler);
         this.dataStore.set("rsvps", result);
@@ -135,7 +134,6 @@ class RSVPPage extends BaseClass {
 
         let userId = document.getElementById("get-rsvp-by-userId-field").value;
         let eventId = document.getElementById("get-rsvp-by-eventId-field").value;
-        this.dataStore.set("rsvp", null);
 
         const rsvpData = await this.client.getRSVP(userId, eventId, this.errorHandler);
         this.dataStore.set("rsvp", rsvpData);
