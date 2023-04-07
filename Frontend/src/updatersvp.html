@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+<head>
+    <script type="text/javascript" src="updateRsvpPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">Movie Night</a>
+    </div>
+</header>
+    <table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
+        <tbody>
+        <tr>
+            <td style="text-align: center;"><a href="rsvp.html">RSVP</a></td>
+            <td style="text-align: center;"><a href="updatersvp.html">UPDATE RSVP</a></td>
+            <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
+            <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
+            <td style="text-align: center;"><a href="movie.html">MOVIES</a></td>
+            <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
+            <td style="text-align: center;"><a href="users.html">USERS</a></td>
+            <td style="text-align: right;"><a href="index.html" id="login"></a></td>
+        </tr>
+        </tbody>
+    </table>
+<div class="card">
+    <h2>Update RSVP</h2>
+    <form class="card-content" id="get-rsvp-form">
+        <p class="form-field">
+        <p>
+            <label for="get-rsvp-by-userId-field">Enter User Id</label>
+            <input type="text" required class="validated-field" id="get-rsvp-by-userId-field">
+        </p>
+        <p> <label for="get-rsvp-by-userId-field">Enter Event Id</label>
+            <input type="text" required class="validated-field" id="get-rsvp-by-eventId-field">
+        </p>
+    </form>
+    <form class="card-content" id="update-rsvp-form">
+        <p class="form-field">
+            <input type="hidden" required class="validated-field" id="eventId">
+        </p>
+        <p class="form-field">
+            <label>Attending:</label>
+        </p>
+        <input type="radio" name="active_round" id="active_round_yes">Yes</input>
+        <input type="radio" name="active_round" id="active_round_no">No</input>
+        <br>
+        <p>
+        <button type="submit">Update</button>
+        </p>
+    </form>
+</div>
+
+<div class="card">
+    <h2>EVENT DETAILS</h2>
+    <p id="update-rsvp-event-details"></p>
+    <br>
+    RSVP List
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
+        <thead>
+        <tr>
+            <th style="width:25%">NAME</th>
+            <th style="width:25%">ATTENDING</th>
+        </tr>
+        </thead>
+        <tbody id="update-rsvp-table-body">
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>
