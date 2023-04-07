@@ -34,7 +34,7 @@ class RSVPPage extends BaseClass {
 
         let rsvpHTML = "";
 
-        const rsvps = this.dataStore.get("rsvps");
+        const rsvps = this.dataStore.get("eventRsvp");
 
         const users = rsvps.users;
 
@@ -89,10 +89,10 @@ class RSVPPage extends BaseClass {
     async getAllEventRSVPs(event) {
         event.preventDefault();
         let eventId = document.getElementById("get-all-rsvp-by-eventId-field").value;
-        // this.dataStore.set("rsvps", null);
+        // this.dataStore.set("event-rsvp", null);
 
         let result = await this.client.getAllEventRSVPs(eventId, this.errorHandler);
-        this.dataStore.set("rsvps", result);
+        this.dataStore.set("eventRsvp", result);
 
 
         if (result) {

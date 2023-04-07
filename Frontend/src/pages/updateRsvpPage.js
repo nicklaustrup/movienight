@@ -5,7 +5,7 @@ import RSVPClient from "../api/rsvpClient";
 /**
  * Logic needed for the view playlist page of the website.
  */
-class RSVPPage extends BaseClass {
+class UpdateRSVPPage extends BaseClass {
 
     constructor() {
         super();
