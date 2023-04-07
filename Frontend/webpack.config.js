@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     moviePage: path.resolve(__dirname, 'src', 'pages', 'moviePage.js'),
+    userPage: path.resolve(__dirname, 'src', 'pages', 'userPage.js'),
     eventsPage: path.resolve(__dirname, 'src', 'pages', 'eventsPage.js'),
     eventPage: path.resolve(__dirname, 'src', 'pages', 'eventPage.js'),
   },
@@ -43,6 +44,11 @@ module.exports = {
       template: './src/events.html',
       filename: 'events.html',
       inject: false
+    }),
+    new HtmlWebpackPlugin({
+          template: './src/users.html',
+          filename: 'users.html',
+          inject: false
     }),
     new HtmlWebpackPlugin({
       template: './src/login.html',

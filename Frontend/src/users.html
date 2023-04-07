@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+<head>
+    <script type="text/javascript" src="userPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">Movie Night</a>
+    </div>
+    <div>
+        <a href="movie.html">Go to Movie Page</a>
+        <a href="login.html">Go to Login Page</a>
+        <a href="events.html">Go to Events Page</a>
+    </div>
+</header>
+<div class="card">
+    <h2>Create User</h2>
+    <form class="card-content" id="create-user-form">
+        <p class="form-field">
+            <label for="create-firstName-field">First Name</label>
+            <input type="text" required class="validated-field" id="create-firstName-field">
+            <label for="create-lastName-field">Last Name</label>
+            <input type="text" required class="validated-field" id="create-lastName-field">
+        </p>
+        <button type="submit">Create</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Get By User ID</h2>
+    <form class="card-content" id="get-by-userId-form">
+        <p class="form-field">
+            <label for="userId-field">userID</label>
+            <input type="text" required class="validated-field" id="userId-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>User Found</h2>
+        <p id="get-user-result"></p>
+
+</div>
+<div class="card" id="result">
+    <h2>All Users:</h2>
+    <p id="user-result"> </p>
+</div>
+
+</body>
+</html>
