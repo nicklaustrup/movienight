@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="eventcreatePage.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <base href="/" />
+</head>
+<body class="background">
+<header class="header" id="header">
+  <div class="site-title">
+    <a class="header_home" href="index.html">RSVP App</a>
+  </div>
+</header>
+<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
+  <tbody>
+  <tr>
+    <td style="text-align: center;"><a href="http://amazon.com">RSVP</a></td>
+    <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
+    <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
+    <td style="text-align: right;"><a href="login.html" id="login"></a></td>
+  </tr>
+  </tbody>
+</table>
+<div class="card" id="events">
+  <h2>Event Create</h2>
+  <form class="card-content" id="create-form">
+    <p class="form-field">
+      <label for="eventTitle">Title</label>
+      <input type="text" required class="validated-field" id="eventTitle">
+    </p>
+    <p class="form-field">
+      <label for="movie">Movie</label>
+      <select id="movie">
+      </select>
+    </p>
+    <p class="form-field">
+      <label for="date">Date</label>
+      <input type="text" required class="validated-field" id="date">
+    </p>
+    <p>RSVP List</p>
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Invite?</th>
+      </tr>
+      </thead>
+      <tbody id="RSVP">
+      </tbody>
+    </table>
+    <br>
+    <button type="submit">Create</button>
+  </form>
+</div>
+</body>
+</html>

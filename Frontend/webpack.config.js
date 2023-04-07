@@ -12,6 +12,7 @@ module.exports = {
     moviePage: path.resolve(__dirname, 'src', 'pages', 'moviePage.js'),
     eventsPage: path.resolve(__dirname, 'src', 'pages', 'eventsPage.js'),
     eventPage: path.resolve(__dirname, 'src', 'pages', 'eventPage.js'),
+    eventcreatePage: path.resolve(__dirname, 'src', 'pages', 'eventcreatePage.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -52,6 +53,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/event.html',
       filename: 'event.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/eventcreate.html',
+      filename: 'eventcreate.html',
       inject: false
     }),
     new CopyPlugin({
