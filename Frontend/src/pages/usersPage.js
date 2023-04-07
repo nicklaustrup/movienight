@@ -1,15 +1,13 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import EventClient from "../api/eventsClient";
+import UsersClient from "../api/usersClient";
 
-/**
- * Logic needed for the view playlist page of the website.
- */
-class EventAllPage extends BaseClass {
+
+class UserAllPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getAllEvents', 'getUser', 'renderEvents', 'renderLogin'], this);
+        this.bindClassMethods(['getAllUsers', 'getUser','renderUsers', 'renderLogin'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,39 +15,32 @@ class EventAllPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        this.client = new EventClient();
-        this.getAllEvents();
+        this.client = new UsersClient();
+        this.getAllUsers();
         var userId = window.localStorage.getItem('userId'); //searches for the userId in localStorage
         this.getUser(userId);
-        this.dataStore.addChangeListener(this.renderEvents);
+        this.dataStore.addChangeListener(this.renderUsers);
         this.dataStore.addChangeListener(this.renderLogin)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderEvents() {
-        let resultArea = document.getElementById("events-info");
-        const events = this.dataStore.get("events");
-        let eventHTML = "";
+    async renderUsers() {
+        let resultArea = document.getElementById("users-info");
+        const users = this.dataStore.get("users");
+        let userHTML = "";
 
-        if (events) {
-            for (let event of events){
-                eventHTML += `<tr>
-                    <td>${event.date}</td>
-                    <td>${event.eventTitle}</td>
-                    <td>${event.title}</td>`;
-                if (event.active) {
-                    eventHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
-                    }
-                else {
-                    eventHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
-                }
-                eventHTML +=`<td><input type="button" onclick="store_redirect('${event.eventId}')" value="Update" /></td>
-                    </tr>`;
-            }
-            resultArea.innerHTML = eventHTML;
+        if (users) {
+            for (let user of users){
+            userHTML += `<tr>
+                            <td>${user.userId}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                         </td>`;
+             }
+            resultArea.innerHTML = userHTML;
         } else {
-            resultArea.innerHTML = "No Events";
+            resultArea.innerHTML = "No Users";
         }
     }
 
@@ -68,11 +59,11 @@ class EventAllPage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async getAllEvents() {
-        let result = await this.client.getAllEvents(this.errorHandler);
-        this.dataStore.set("events", result);
+    async getAllUsers() {
+        let result = await this.client.getAllUsers(this.errorHandler);
+        this.dataStore.set("users", result);
         if (result) {
-            this.showMessage(`Got All Events!`)
+            this.showMessage(`Got All Users!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
@@ -93,8 +84,8 @@ class EventAllPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const eventsPage = new EventAllPage();
-    await eventsPage.mount();
+    const userAllPage = new UserAllPage();
+    userAllPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

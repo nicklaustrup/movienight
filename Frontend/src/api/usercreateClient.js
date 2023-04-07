@@ -6,7 +6,7 @@ export default class UserClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getUser', 'createUser', 'getAllUsers'];
+        const methodsToBind = ['clientLoaded', 'getUser', 'createUser'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -32,14 +32,6 @@ export default class UserClient extends BaseClass {
     async getUser(userId, errorCallback) {
         try {
             const response = await this.client.get(`/user/${userId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getUser", error, errorCallback)
-        }
-    }
-    async getAllUsers(errorCallback) {
-        try {
-            const response = await this.client.get(`/user/all`);
             return response.data;
         } catch (error) {
             this.handleError("getUser", error, errorCallback)
