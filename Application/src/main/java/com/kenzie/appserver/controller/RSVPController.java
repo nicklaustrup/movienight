@@ -116,6 +116,7 @@ public class RSVPController {
                 eventResponse.setMovieId(event.getMovieId());
                 eventResponse.setDate(event.getDate());
                 eventResponse.setActive(event.getActive());
+                eventResponse.setIsAttending(rsvp.getIsAttending());
 
                 //get movie details
                 Movie movie = movieService.findById(event.getMovieId());
