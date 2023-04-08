@@ -2,10 +2,9 @@
 <html lang="en-US">
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-    <script type="text/javascript" src="eventsPage.js"></script>
+    <script type="text/javascript" src="moviesPage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <base href="/" />
 </head>
 <body class="background">
 <header class="header" id="header">
@@ -27,27 +26,19 @@
     </tr>
     </tbody>
 </table>
-<div class="card" id="events">
-    <h2>List of Events</h2>
-    <table border="1" cellpadding="1" cellspacing="1" style="width:1000px;">
+<div class="card">
+    <h2>List of Movies</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
         <thead>
         <tr>
-            <th scope="col">Date - Time</th>
-            <th scope="col">Title</th>
-            <th scope="col">Movie</th>
-            <th scope="col">Active</th>
-            <th scope="col">&nbsp;</th>
+            <th scope="col" style="width: 350px">Movie Id</th>
+            <th scope="col" style="width: 350px">Title</th>
+            <th scope="col" style="width: 550px">Description</th>
         </tr>
         </thead>
-        <tbody id="events-info">
+        <tbody id="movies-info">
         </tbody>
     </table>
-    <script>
-    function store_redirect(eventId){ //stores items in the localStorage
-        window.localStorage.setItem('eventId', eventId);
-        window.location.href="event.html";
-    }
-    </script>
 </div>
 </body>
 </html>

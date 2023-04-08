@@ -2,7 +2,7 @@
 <html lang="en-US">
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-    <script type="text/javascript" src="moviePage.js"></script>
+    <script type="text/javascript" src="moviecreatePage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
@@ -15,11 +15,11 @@
 <table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
     <tbody>
     <tr>
-        <td style="text-align: center;"><a href="rsvp.html">RSVP</a></td>
-        <td style="text-align: center;"><a href="updatersvp.html.html">UPDATE RSVP</a></td>
+        <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
         <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
         <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
-        <td style="text-align: center;"><a href="movie.html">MOVIES</a></td>
+        <td style="text-align: center;"><a href="moviecreate.html">CREATE MOVIE</a></td>
+        <td style="text-align: center;"><a href="movies.html">MOVIES</a></td>
         <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
         <td style="text-align: center;"><a href="users.html">USERS</a></td>
         <td style="text-align: right;"><a href="index.html" id="login"></a></td>
@@ -32,31 +32,13 @@
         <p class="form-field">
             <label for="create-title-field">Title</label>
             <input type="text" required class="validated-field" id="create-title-field">
+        </p>
+        <p class="form-field">
             <label for="create-description-field">Description</label>
             <input type="text" required class="validated-field" id="create-description-field">
         </p>
         <button type="submit">Create</button>
     </form>
 </div>
-<div class="card">
-    <h2>Get By Movie ID</h2>
-    <form class="card-content" id="get-by-movieId-form">
-        <p class="form-field">
-            <label for="movieId-field">MovieID</label>
-            <input type="text" required class="validated-field" id="movieId-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
-    <h2>Movie Found</h2>
-        <p id="get-movie-result"></p>
-
-</div>
-<div class="card" id="result">
-    <h2>All Movies:</h2>
-    <p id="movie-result"> </p>
-</div>
-
 </body>
 </html>

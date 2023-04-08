@@ -9,13 +9,15 @@ module.exports = {
   },
   entry: {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-    moviePage: path.resolve(__dirname, 'src', 'pages', 'moviePage.js'),
+    moviecreatePage: path.resolve(__dirname, 'src', 'pages', 'moviecreatePage.js'),
+    moviesPage: path.resolve(__dirname, 'src', 'pages', 'moviesPage.js'),
     usercreatePage: path.resolve(__dirname, 'src', 'pages', 'usercreatePage.js'),
     usersPage: path.resolve(__dirname, 'src', 'pages', 'usersPage.js'),
     eventsPage: path.resolve(__dirname, 'src', 'pages', 'eventsPage.js'),
     eventPage: path.resolve(__dirname, 'src', 'pages', 'eventPage.js'),
     eventcreatePage: path.resolve(__dirname, 'src', 'pages', 'eventcreatePage.js'),
     rsvpPage: path.resolve(__dirname, 'src', 'pages', 'rsvpPage.js'),
+    rsvpsPage: path.resolve(__dirname, 'src', 'pages', 'rsvpsPage.js'),
     updateRsvpPage: path.resolve(__dirname, 'src', 'pages', 'updateRsvpPage.js')
   },
   output: {
@@ -40,8 +42,13 @@ module.exports = {
       inject: false
     }),
     new HtmlWebpackPlugin({
-      template: './src/movie.html',
-      filename: 'movie.html',
+      template: './src/moviecreate.html',
+      filename: 'moviecreate.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/movies.html',
+      filename: 'movies.html',
       inject: false
     }),
     new HtmlWebpackPlugin({
@@ -77,6 +84,11 @@ module.exports = {
       new HtmlWebpackPlugin({
         template: './src/rsvp.html',
         filename: 'rsvp.html',
+        inject: false
+    }),
+      new HtmlWebpackPlugin({
+        template: './src/rsvps.html',
+        filename: 'rsvps.html',
         inject: false
     }),
     new CopyPlugin({

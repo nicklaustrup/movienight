@@ -2,7 +2,7 @@
 <html lang="en-US">
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-    <script type="text/javascript" src="eventsPage.js"></script>
+    <script type="text/javascript" src="rsvpsPage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <base href="/" />
@@ -27,8 +27,8 @@
     </tr>
     </tbody>
 </table>
-<div class="card" id="events">
-    <h2>List of Events</h2>
+<div class="card" id="rsvps">
+    <h2>List of RSVPs</h2>
     <table border="1" cellpadding="1" cellspacing="1" style="width:1000px;">
         <thead>
         <tr>
@@ -36,16 +36,17 @@
             <th scope="col">Title</th>
             <th scope="col">Movie</th>
             <th scope="col">Active</th>
+            <th scope="col">RSVP</th>
             <th scope="col">&nbsp;</th>
         </tr>
         </thead>
-        <tbody id="events-info">
+        <tbody id="rsvps-info">
         </tbody>
     </table>
     <script>
     function store_redirect(eventId){ //stores items in the localStorage
         window.localStorage.setItem('eventId', eventId);
-        window.location.href="event.html";
+        window.location.href="rsvp.html";
     }
     </script>
 </div>

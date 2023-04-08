@@ -1,19 +1,12 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
-/**
- * Client to call the MusicPlaylistService.
- *
- * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
- * which we could avoid using inheritance or Mixins.
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
- * https://javascript.info/mixins
- */
+
 export default class MovieClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getMovie', 'createMovie', 'getAllMovies'];
+        const methodsToBind = ['clientLoaded', 'getUser', 'createMovie'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,25 +24,17 @@ export default class MovieClient extends BaseClass {
     }
 
     /**
-     * Gets the movie for the given ID.
-     * @param movieId Unique identifier for a movie
+     * Gets the user for the given ID.
+     * @param userId Unique identifier for a user
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The concert
+     * @returns The user
      */
-    async getMovie(movieId, errorCallback) {
+    async getUser(userId, errorCallback) {
         try {
-            const response = await this.client.get(`/movie/${movieId}`);
+            const response = await this.client.get(`/user/${userId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getMovie", error, errorCallback)
-        }
-    }
-    async getAllMovies(errorCallback) {
-        try {
-            const response = await this.client.get(`/movie/all`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getMovie", error, errorCallback)
+            this.handleError("getUser", error, errorCallback)
         }
     }
 

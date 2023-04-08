@@ -1,9 +1,9 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import UserClient from "../api/usercreateClient";
+import  MovieClient from "../api/moviecreateClient";
 
 
-class UserPage extends BaseClass {
+class MoviePage extends BaseClass {
 
     constructor() {
         super();
@@ -15,13 +15,11 @@ class UserPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-//        document.getElementById('get-by-userId-form').addEventListener('submit', this.getUser);
-        this.client = new UserClient();
+        this.client = new MovieClient();
         var userId = window.localStorage.getItem('userId'); //searches for the userId in localStorage
         this.getUser(userId);
-//        this.getAllUsers();
         this.dataStore.addChangeListener(this.renderLogin);
-        document.getElementById('create-user-form').addEventListener('submit', this.onCreate);
+        document.getElementById('create-movie-form').addEventListener('submit', this.onCreate);
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -54,17 +52,16 @@ class UserPage extends BaseClass {
     async onCreate(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        this.dataStore.set("userCreated", null);
+        this.dataStore.set("movieCreated", null);
 
-        let firstName = document.getElementById("create-firstName-field").value;
-        let lastName = document.getElementById("create-lastName-field").value;
+        let title = document.getElementById("create-title-field").value;
+        let description = document.getElementById("create-description-field").value;
 
+        const createdMovie = await this.client.createMovie(title, description, this.errorHandler);
+        this.dataStore.set("movieCreated", createdMovie);
 
-        const createdUser = await this.client.createUser(firstName, lastName, this.errorHandler);
-        this.dataStore.set("userCreated", createdUser);
-
-        if (createdUser) {
-            this.showMessage(`Created ${createdUser.firstName}!`)
+        if (createdMovie) {
+            this.showMessage(`Created ${createdMovie.title}!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
@@ -75,8 +72,8 @@ class UserPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const userPage = new UserPage();
-    userPage.mount();
+    const moviePage = new MoviePage();
+    moviePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
