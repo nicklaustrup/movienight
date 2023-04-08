@@ -55,6 +55,10 @@ class EventCreatePage extends BaseClass {
                 </tr>`;
         }
         resultRSVP.innerHTML = rsvpHTML;
+
+        //Date should not be in the past
+        let dateField = document.getElementById("date");
+        dateField.min = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
         }
     }
 

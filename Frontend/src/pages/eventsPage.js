@@ -34,8 +34,9 @@ class EventAllPage extends BaseClass {
 
         if (events) {
             for (let event of events){
+                let dateFormatted = new Date(event.date).toLocaleString();
                 eventHTML += `<tr>
-                    <td>${event.date}</td>
+                    <td>${dateFormatted}</td>
                     <td>${event.eventTitle}</td>
                     <td>${event.title}</td>`;
                 if (event.active) {
