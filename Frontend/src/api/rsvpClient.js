@@ -13,7 +13,7 @@ export default class RSVPClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getRSVP', 'getAllEventRSVPs', 'getAllUserRSVPs', 'getUser', 'getEvent'];
+        const methodsToBind = ['clientLoaded', 'getRSVP', 'getAllEventRSVPs', 'getAllUserRSVPs', 'getUser', 'getEvent', 'updateRSVP'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -60,7 +60,7 @@ export default class RSVPClient extends BaseClass {
             const response = await this.client.get(`/rsvp/events/${userId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getAllEventRSVPs", error, errorCallback)
+            this.handleError("getAllUserRSVPs", error, errorCallback)
         }
     }
     async getUser(userId, errorCallback) {
@@ -68,7 +68,7 @@ export default class RSVPClient extends BaseClass {
             const response = await this.client.get(`/user/${userId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getAllEventRSVPs", error, errorCallback)
+            this.handleError("getUser", error, errorCallback)
         }
     }
     async getEvent(eventId, errorCallback) {
@@ -76,19 +76,20 @@ export default class RSVPClient extends BaseClass {
             const response = await this.client.get(`/event/${eventId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getAllEventRSVPs", error, errorCallback)
+            this.handleError("getEvent", error, errorCallback)
         }
     }
 
-    async updateMovie(title, description, errorCallback) {
+    async updateRSVP(userId, eventId, isAttending, errorCallback) {
         try {
-            const response = await this.client.post(`/movie`, {
-                title: title,
-                description: description
+            const response = await this.client.put(`/rsvp`, {
+               userId: userId,
+                eventId: eventId,
+                isAttending: isAttending
             });
             return response.data;
         } catch (error) {
-            this.handleError("createMovie", error, errorCallback);
+            this.handleError("updateRSVP", error, errorCallback);
         }
     }
 

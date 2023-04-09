@@ -42,4 +42,13 @@ public class RSVPService {
         rsvpRepository.save(rsvpRecord);
         return rsvp;
     }
+
+    public RSVP updateRSVP(RSVP rsvp) {
+        RSVPRecord rsvpRecord = new RSVPRecord();
+        rsvpRecord.setUserId(rsvp.getUserId());
+        rsvpRecord.setEventId(rsvp.getEventId());
+        rsvpRecord.setIsAttending(rsvp.getIsAttending());
+        rsvpRepository.save(rsvpRecord);
+        return rsvp;
+    }
 }
