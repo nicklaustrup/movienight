@@ -129,4 +129,29 @@ public class RSVPController {
         }
         return ResponseEntity.ok(eventResponseList);
     }
+
+    @PutMapping
+    public ResponseEntity<RSVPResponse> updateRSVP(@RequestBody RSVPCreateRequest rsvpUpdateRequest) {
+
+//        RSVPCompositeId record = new RSVPCompositeId();
+//        record.setUserId(rsvpUpdateRequest.getUserId());
+//        record.setEventId(rsvpUpdateRequest.getEventId());
+
+//        RSVP rsvp = rsvpService.findById(record);
+//
+//        if (rsvp == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+
+        RSVP updatedRSVP = rsvpService.updateRSVP(new RSVP(rsvpUpdateRequest.getUserId(),
+                rsvpUpdateRequest.getEventId(),
+                rsvpUpdateRequest.getIsAttending()));
+
+        RSVPResponse rsvpResponse = new RSVPResponse();
+        rsvpResponse.setUserId(updatedRSVP.getUserId());
+        rsvpResponse.setEventId(updatedRSVP.getEventId());
+        rsvpResponse.setIsAttending(updatedRSVP.getIsAttending());
+
+        return ResponseEntity.ok(rsvpResponse);
+    }
 }

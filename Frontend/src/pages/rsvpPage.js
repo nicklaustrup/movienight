@@ -19,20 +19,32 @@ class RSVPPage extends BaseClass {
     async mount() {
         document.getElementById('get-rsvp-by-userId-form').addEventListener('submit', this.getAllUserRSVPs);
         document.getElementById('get-rsvp-by-eventId-form').addEventListener('submit', this.getAllEventRSVPs);
-        document.getElementById('get-rsvp-by-userId-eventId-form').addEventListener('submit', this.getRSVP);
+        // document.getElementById('update-rsvp-button').addEventListener('submit', this.getAllEventRSVPs);
+
+
         this.client = new RSVPClient();
 
-        this.dataStore.addChangeListener();
+        // this.dataStore.addChangeListener();
 
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async renderEventUsers() {
-        let resultArea = document.getElementById("get-rsvp-table-body");
+        let resultArea = document.getElementById("rsvp-display-area");
         let displayArea = document.getElementById("view-rsvp-details");
 
-        let rsvpHTML = "";
+        let rsvpHTML = `<h2>Event RSVPs</h2>
+    <table class="rsvp-table">
+    <thead>
+    <tr>
+    <th>Event ID</th>
+    <th>User Name</th>
+    <th>Attending</th>
+    <th>Update</th>
+    </tr>
+    </thead>
+    <tbody>`;
 
         const rsvps = this.dataStore.get("eventRsvp");
 
@@ -53,17 +65,28 @@ class RSVPPage extends BaseClass {
                 <td><button type="submit">Update</button></td>
                 </tr>`
             }
-
             resultArea.innerHTML = rsvpHTML;
+            resultArea.innerHTML += `</tbody></table>`;
         } else {
             resultArea.innerHTML = "No RSVPs found!";
         }
     }
 
     async renderUserEvents() {
-        let resultArea = document.getElementById("get-rsvp-table-body");
+        let resultArea = document.getElementById("rsvp-display-area");
         let displayArea = document.getElementById("view-rsvp-details");
-        let rsvpHTML = "";
+        let rsvpHTML = `<h2>My Events</h2>
+        <table class="rsvp-table">
+    <thead>
+    <tr>
+    <th>Event ID</th>
+    <th>Event Title</th>
+    <th>Movie Title</th>
+    <th>Date</th>
+    <th>Active</th>
+    </tr>
+    </thead>
+    <tbody>`;
 
         const rsvps = this.dataStore.get("rsvps");
         const user = this.dataStore.get("user");
@@ -71,17 +94,19 @@ class RSVPPage extends BaseClass {
         if (user) {
             displayArea.innerHTML = `
             <h2>${user.firstName} ${user.lastName}</h2>
-            <h4>${user.userId}</h4>`;
+            <h4>User ID: ${user.userId}</h4>`;
 
             for (let rsvp of rsvps) {
                 rsvpHTML += `<tr class="get-rsvp-row">
                 <td>${rsvp.eventId}</td>
                 <td>${rsvp.eventTitle}</td>
                 <td>${rsvp.title}</td>
-                <td><button type="submit">Update</button></td>
+                <td>${rsvp.date}</td>
+                <td>${rsvp.active}</td>
                 </tr>`;
             }
             resultArea.innerHTML = rsvpHTML;
+            resultArea.innerHTML += `</tbody></table>`;
         }
     }
     // Event Handlers --------------------------------------------------------------------------------------------------
@@ -123,7 +148,7 @@ class RSVPPage extends BaseClass {
 
         if (result) {
             this.showMessage(`Got RSVP!`)
-            this.renderUserEvents();
+            await this.renderUserEvents();
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
@@ -140,7 +165,7 @@ class RSVPPage extends BaseClass {
 
         if (rsvpData) {
             this.showMessage(`Got RSVP!`);
-            this.renderGetRSVP();
+            await this.renderGetRSVP();
         } else {
             this.errorHandler("Error getting!  Try again...");
         }
@@ -152,7 +177,7 @@ class RSVPPage extends BaseClass {
  */
 const main = async () => {
     const rsvpPage = new RSVPPage();
-    rsvpPage.mount();
+    await rsvpPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

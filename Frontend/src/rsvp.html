@@ -27,18 +27,6 @@
             </tbody>
         </table>
 <div class="card">
-    <h2>Get RSVP</h2>
-    <form class="card-content" id="get-rsvp-by-userId-eventId-form">
-        <p class="form-field">
-            <label for="get-rsvp-by-userId-field">Enter User Id</label>
-            <input type="text" required class="validated-field" id="get-rsvp-by-userId-field">
-            <label for="get-rsvp-by-userId-field">Enter Event Id</label>
-            <input type="text" required class="validated-field" id="get-rsvp-by-eventId-field">
-        </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
     <h2>Get All RSVPs for User</h2>
     <form class="card-content" id="get-rsvp-by-userId-form">
         <p class="form-field">
@@ -59,24 +47,12 @@
     </form>
 </div>
 <div class="card" id="view-rsvp">
-    <h2>Event Details</h2>
+    <h2>Details</h2>
     <p id="view-rsvp-details"></p>
-        <button type="submit">Go to Update RSVP Page</button>
+        <button id= "update-rsvp-button" type="submit">Go to Update RSVP Page</button>
 </div>
-<div class="card">
-    <h2>People Invited</h2>
-    <table class="rsvp-table">
-        <thead>
-        <tr>
-            <th style="width:25%">User Id</th>
-            <th style="width:25%">Name</th>
-            <th style="width:25%">RSVP</th>
-            <th style="width:25%">Update RSVP</th>
-        </tr>
-        </thead>
-        <tbody id="get-rsvp-table-body">
-        </tbody>
-    </table>
+<div class="card" id="rsvp-display-area">
+    <h2>Event Details</h2>
 </div>
 
 </body>
