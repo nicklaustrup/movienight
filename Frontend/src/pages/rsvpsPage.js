@@ -1,15 +1,15 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import EventClient from "../api/eventsClient";
+import RSVPClient from "../api/rsvpsClient";
 
 /**
  * Logic needed for the view playlist page of the website.
  */
-class EventAllPage extends BaseClass {
+class RSVPAllPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getAllEvents', 'getUser', 'renderEvents', 'renderLogin'], this);
+        this.bindClassMethods(['getAllRSVPs', 'getUser', 'renderRSVPs', 'renderLogin'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,40 +17,47 @@ class EventAllPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        this.client = new EventClient();
-        this.getAllEvents();
+        this.client = new RSVPClient();
         var userId = window.localStorage.getItem('userId'); //searches for the userId in localStorage
         this.getUser(userId);
-        this.dataStore.addChangeListener(this.renderEvents);
+        this.getAllRSVPs(userId);
+        this.dataStore.addChangeListener(this.renderRSVPs);
         this.dataStore.addChangeListener(this.renderLogin)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderEvents() {
-        let resultArea = document.getElementById("events-info");
-        const events = this.dataStore.get("events");
-        let eventHTML = "";
+    async renderRSVPs() {
+        let resultArea = document.getElementById("rsvps-info");
+        const rsvps = this.dataStore.get("rsvps");
+        let rvspHTML = "";
 
-        if (events) {
-            for (let event of events){
-                let dateFormatted = new Date(event.date).toLocaleString();
-                eventHTML += `<tr>
+        if (rsvps) {
+            for (let rsvp of rsvps){
+                let dateFormatted = new Date(rsvp.date).toLocaleString();
+                rvspHTML += `<tr>
                     <td>${dateFormatted}</td>
-                    <td>${event.eventTitle}</td>
-                    <td>${event.title}</td>`;
-                if (event.active) {
-                    eventHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    <td>${rsvp.eventTitle}</td>
+                    <td>${rsvp.title}</td>`;
+                if (rsvp.active) {
+                    rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
                     }
                 else {
-                    eventHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
                 }
-                eventHTML +=`<td><input type="button" onclick="store_redirect('${event.eventId}')" value="Update" /></td>
+                if (event.isAttending) {
+                    rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    }
+                else {
+                    rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
+                }
+                rvspHTML +=`<td><input type="button" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
                     </tr>`;
+
             }
-            resultArea.innerHTML = eventHTML;
+            resultArea.innerHTML = rvspHTML;
         } else {
-            resultArea.innerHTML = "No Events";
+            resultArea.innerHTML = "No RSVPs";
         }
     }
 
@@ -69,11 +76,11 @@ class EventAllPage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async getAllEvents() {
-        let result = await this.client.getAllEvents(this.errorHandler);
-        this.dataStore.set("events", result);
+    async getAllRSVPs(userId) {
+        let result = await this.client.getAllRSVPs(userId, this.errorHandler);
+        this.dataStore.set("rsvps", result);
         if (result) {
-            this.showMessage(`Got All Events!`)
+            this.showMessage(`Got All RSVPs!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
@@ -94,8 +101,8 @@ class EventAllPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const eventsPage = new EventAllPage();
-    await eventsPage.mount();
+    const rsvpsPage = new RSVPAllPage();
+    await rsvpsPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

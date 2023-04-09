@@ -1,12 +1,19 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
-
-export default class UsersClient extends BaseClass {
+/**
+ * Client to call the MusicPlaylistService.
+ *
+ * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
+ * which we could avoid using inheritance or Mixins.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
+ * https://javascript.info/mixins
+ */
+export default class RSVPClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAllUsers', 'getUser'];
+        const methodsToBind = ['clientLoaded', 'getAllRSVPs', 'getUser'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -24,27 +31,29 @@ export default class UsersClient extends BaseClass {
     }
 
     /**
-     * Gets the user for the given ID.
-     * @param userId Unique identifier for a user
+     * Gets the concert for the given ID.
+     * @param id Unique identifier for a concert
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The user
+     * @returns The concert
      */
-    async getUser(userId, errorCallback) {
-        try {
-            const response = await this.client.get(`/user/${userId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getUser", error, errorCallback)
-        }
-    }
-    async getAllUsers(errorCallback) {
-        try {
-            const response = await this.client.get(`/user/all`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getAllUsers", error, errorCallback)
-        }
-    }
+
+     async getAllRSVPs(userId, errorCallback) {
+         try {
+             const response = await this.client.get(`/rsvp/events/${userId}`);
+             return response.data;
+         } catch (error) {
+             this.handleError("getAllRSVPs", error, errorCallback)
+         }
+     }
+
+     async getUser(userId, errorCallback) {
+         try {
+             const response = await this.client.get(`/user/${userId}`);
+             return response.data;
+         } catch (error) {
+             this.handleError("getUser", error, errorCallback)
+         }
+     }
 
     /**
      * Helper method to log the error and run any error functions.

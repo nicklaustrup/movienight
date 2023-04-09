@@ -32,6 +32,9 @@ public class EventResponse {
     @JsonProperty("active")
     private Boolean active;
 
+    @JsonProperty("isAttending")
+    private Boolean isAttending;
+
     @JsonProperty("users")
     private List<RSVPUser> users;
 
@@ -89,6 +92,14 @@ public class EventResponse {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Boolean getIsAttending() {
+        return isAttending;
+    }
+
+    public void setIsAttending(Boolean isAttending) {
+        this.isAttending = isAttending;
     }
 
     public List<RSVPUser> getUsers() {

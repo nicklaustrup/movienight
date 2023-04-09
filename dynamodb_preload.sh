@@ -105,7 +105,7 @@ aws dynamodb put-item \
   "eventId": {"S": "781a51c9-582d-4ce2-931c-76ade1f0f6e2"},
   "eventTitle": {"S": "Science Fiction Night - Space & Time travel"},
   "movieId": {"S": "537b5cbe-7c12-468b-84c4-c3d1aa88093c"},
-  "date": {"S": "2023-04-17T19:30:23.425"},
+  "date": {"S": "2023-04-17T19:30"},
   "active": {"BOOL": true}
 }'
 aws dynamodb put-item \
@@ -115,7 +115,7 @@ aws dynamodb put-item \
   "eventId": {"S": "9a4142f2-ade1-4a12-92a7-e18190f0140c"},
   "eventTitle": {"S": "Anime Shonen Night - Destinies Collide"},
   "movieId": {"S": "062deb9d-937b-44f4-a057-c8629cb461d9"},
-  "date": {"S": "2023-04-15T20:30:23.425"},
+  "date": {"S": "2023-04-15T20:30"},
   "active": {"BOOL": true}
 }'
 aws dynamodb put-item \
@@ -125,7 +125,7 @@ aws dynamodb put-item \
   "eventId": {"S": "277f7b73-bdbe-4944-a13c-15e820b69977"},
   "eventTitle": {"S": "Hitman Classic - Last Action Hero"},
   "movieId": {"S": "0410299e-7099-4a62-bc2d-b2ad2885ae40"},
-  "date": {"S": "2023-04-13T18:00:23.425"},
+  "date": {"S": "2023-04-13T18:00"},
   "active": {"BOOL": true}
 }'
 aws dynamodb put-item \
@@ -135,7 +135,7 @@ aws dynamodb put-item \
   "eventId": {"S": "a47d8c79-86f2-491d-893e-5153dfd93abd"},
   "eventTitle": {"S": "Oscar Winner 2022 - Best Movie"},
   "movieId": {"S": "815fba8f-4ea9-43ed-a737-0c67bded9dc5"},
-  "date": {"S": "2023-04-20T18:00:23.425"},
+  "date": {"S": "2023-04-20T18:00"},
   "active": {"BOOL": true}
 }'
 # Populating RSVP table

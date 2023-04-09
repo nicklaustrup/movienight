@@ -2,11 +2,11 @@ import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
 
-export default class UsersClient extends BaseClass {
+export default class MoviesClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAllUsers', 'getUser'];
+        const methodsToBind = ['clientLoaded', 'getAllMovies', 'getUser'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -37,12 +37,12 @@ export default class UsersClient extends BaseClass {
             this.handleError("getUser", error, errorCallback)
         }
     }
-    async getAllUsers(errorCallback) {
+    async getAllMovies(errorCallback) {
         try {
-            const response = await this.client.get(`/user/all`);
+            const response = await this.client.get(`/movie/all`);
             return response.data;
         } catch (error) {
-            this.handleError("getAllUsers", error, errorCallback)
+            this.handleError("getAllMovies", error, errorCallback)
         }
     }
 
