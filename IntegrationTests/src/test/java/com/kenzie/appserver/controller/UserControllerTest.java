@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.ExampleCreateRequest;
+import com.kenzie.appserver.controller.model.UserCreateRequest;
 import com.kenzie.appserver.service.ExampleService;
+import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.Example;
+import com.kenzie.appserver.service.model.User;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,45 +30,52 @@ class UserControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    ExampleService exampleService;
+    UserService userService;
 
     private final MockNeat mockNeat = MockNeat.threadLocal();
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-//    @Test
-//    public void getById_Exists() throws Exception {
-//        String id = UUID.randomUUID().toString();
-//        String name = mockNeat.strings().valStr();
-//
-//        Example example = new Example(id, name);
-//        Example persistedExample = exampleService.addNewExample(example);
-//        mvc.perform(get("/example/{id}", persistedExample.getId())
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("id")
-//                        .value(is(id)))
-//                .andExpect(jsonPath("name")
-//                        .value(is(name)))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    public void getById_Exists() throws Exception {
+        String id = UUID.randomUUID().toString();
+        String firstName = mockNeat.strings().valStr();
+        String lastName = mockNeat.strings().valStr();
 
-//    @Test
-//    public void createExample_CreateSuccessful() throws Exception {
-//        String name = mockNeat.strings().valStr();
-//
-//        ExampleCreateRequest exampleCreateRequest = new ExampleCreateRequest();
-//        exampleCreateRequest.setName(name);
-//
-//        mapper.registerModule(new JavaTimeModule());
-//
-//        mvc.perform(post("/example")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(exampleCreateRequest)))
-//                .andExpect(jsonPath("id")
-//                        .exists())
-//                .andExpect(jsonPath("name")
-//                        .value(is(name)))
-//                .andExpect(status().isCreated());
-//    }
+        User user = new User(id, firstName, lastName);
+        User persistedUser = userService.addNewUser(user);
+        mvc.perform(get("/user/{id}", persistedUser.getUserId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("userId")
+                        .value(is(id)))
+                .andExpect(jsonPath("firstName")
+                        .value(is(firstName)))
+                .andExpect(jsonPath("lastName")
+                        .value(is(lastName)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void createUser_CreateSuccessful() throws Exception {
+        String firstName = mockNeat.strings().valStr();
+        String lastName = mockNeat.strings().valStr();
+
+        UserCreateRequest userCreateRequest = new UserCreateRequest();
+        userCreateRequest.setFirstName(firstName);
+        userCreateRequest.setLastName(lastName);
+
+        mapper.registerModule(new JavaTimeModule());
+
+        mvc.perform(post("/user")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCreateRequest)))
+                .andExpect(jsonPath("userId")
+                        .exists())
+                .andExpect(jsonPath("firstName")
+                        .value(is(firstName)))
+                .andExpect(jsonPath("lastName")
+                        .value(is(lastName)))
+                .andExpect(status().isCreated());
+    }
 }
