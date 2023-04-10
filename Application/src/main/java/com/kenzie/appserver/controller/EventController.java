@@ -74,7 +74,7 @@ public class EventController {
                 if (user == null) {
                     return ResponseEntity.notFound().build();
                 }
-                RSVPUser rsvpUser = new RSVPUser(rsvpRecord.getUserId(), rsvpRecord.getEventId(),user.getFirstName(), user.getLastName(),rsvpRecord.getIsAttending());
+                RSVPUser rsvpUser = new RSVPUser(rsvpRecord.getEventId(), rsvpRecord.getUserId(),user.getFirstName(), user.getLastName(),rsvpRecord.getIsAttending());
                 usersForEvent.add(rsvpUser);
             }
         }
@@ -123,7 +123,7 @@ public class EventController {
             if (user == null) {
                 return ResponseEntity.notFound().build();
             }
-            RSVPUsers.add(new RSVPUser(user, eventId, userDetails.getFirstName(), userDetails.getLastName(), false));
+            RSVPUsers.add(new RSVPUser(eventId, user, userDetails.getFirstName(), userDetails.getLastName(), false));
         }
         Event event = new Event(eventId,
                 eventCreateRequest.getEventTitle(),
@@ -181,7 +181,7 @@ public class EventController {
                 if (user == null) {
                     return ResponseEntity.notFound().build();
                 }
-                RSVPUser rsvpUser = new RSVPUser(rsvpRecord.getUserId(), rsvpRecord.getEventId(),user.getFirstName(), user.getLastName(),rsvpRecord.getIsAttending());
+                RSVPUser rsvpUser = new RSVPUser(rsvpRecord.getEventId(), rsvpRecord.getUserId(),user.getFirstName(), user.getLastName(),rsvpRecord.getIsAttending());
                 usersForEvent.add(rsvpUser);
             }
         }

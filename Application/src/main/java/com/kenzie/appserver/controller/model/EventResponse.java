@@ -94,12 +94,13 @@ public class EventResponse {
         this.active = active;
     }
 
-    public Boolean getIsAttending() {
+
+    public Boolean getAttending() {
         return isAttending;
     }
 
-    public void setIsAttending(Boolean isAttending) {
-        this.isAttending = isAttending;
+    public void setAttending(Boolean attending) {
+        isAttending = attending;
     }
 
     public List<RSVPUser> getUsers() {

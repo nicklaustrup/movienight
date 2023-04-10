@@ -9,7 +9,7 @@ class RSVPAllPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getAllRSVPs', 'getUser', 'renderRSVPs', 'renderLogin'], this);
+        this.bindClassMethods(['getAllRSVPs', 'getUser', 'renderRSVPs', 'renderLogin', 'renderMenu'], this);
         this.dataStore = new DataStore();
     }
 
@@ -21,8 +21,9 @@ class RSVPAllPage extends BaseClass {
         var userId = window.localStorage.getItem('userId'); //searches for the userId in localStorage
         this.getUser(userId);
         this.getAllRSVPs(userId);
+        this.dataStore.addChangeListener(this.renderMenu);
         this.dataStore.addChangeListener(this.renderRSVPs);
-        this.dataStore.addChangeListener(this.renderLogin)
+        this.dataStore.addChangeListener(this.renderLogin);
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -44,16 +45,21 @@ class RSVPAllPage extends BaseClass {
                     }
                 else {
                     rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
-                }
-                if (event.isAttending) {
+                };
+                if (rsvp.isAttending) {
                     rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
                     }
                 else {
                     rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
-                }
-                rvspHTML +=`<td><input type="button" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
+                };
+                if (rsvp.active) {
+                    rvspHTML +=`<td><input type="button" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
                     </tr>`;
-
+                    }
+                else {
+                    rvspHTML += `<td></td>
+                    </tr>`;
+                }
             }
             resultArea.innerHTML = rvspHTML;
         } else {
@@ -71,6 +77,32 @@ class RSVPAllPage extends BaseClass {
             resultArea.innerHTML = userHTML;
         } else {
             resultArea.innerHTML = "No User";
+        }
+    }
+
+    async renderMenu() {
+        var userId = window.localStorage.getItem('userId');
+        if (userId === "01677f59-d4a7-4fbc-9455-f2ef80c06839") {
+            document.getElementById("menu").innerHTML = `
+                <tr>
+                    <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
+                    <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
+                    <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
+                    <td style="text-align: center;"><a href="moviecreate.html">CREATE MOVIE</a></td>
+                    <td style="text-align: center;"><a href="movies.html">MOVIES</a></td>
+                    <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
+                    <td style="text-align: center;"><a href="users.html">USERS</a></td>
+                    <td style="text-align: right;"><a href="index.html" id="login"></a></td>
+                </tr>
+            `;
+        }
+        else {
+            document.getElementById("menu").innerHTML = `
+                <tr>
+                    <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
+                    <td style="text-align: right;"><a href="index.html" id="login"></a></td>
+                </tr>
+            `;
         }
     }
 
