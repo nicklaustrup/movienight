@@ -11,14 +11,17 @@ import com.kenzie.appserver.repositories.model.UserRecord;
 import com.kenzie.appserver.service.EventService;
 import com.kenzie.appserver.service.MovieService;
 import com.kenzie.appserver.service.RSVPService;
+
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.Event;
 import com.kenzie.appserver.service.model.Movie;
 import com.kenzie.appserver.service.model.RSVP;
 
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import com.kenzie.appserver.service.model.User;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,8 +34,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+
 import java.util.Optional;
 import java.util.UUID;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -53,6 +58,7 @@ public class EventControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
     private final ObjectMapper mapper = new ObjectMapper();
 
     private final MockNeat mockNeat = MockNeat.threadLocal();
