@@ -70,6 +70,41 @@ public class EventServiceTest {
         Assertions.assertEquals(record.getActive(), event.getActive(), "The active value matches");
     }
     @Test
+    void findAll() {
+        // GIVEN
+        String eventId = randomUUID().toString();
+        EventRecord record = new EventRecord();
+        record.setEventId(eventId);
+        record.setEventTitle("title");
+        record.setMovieId("movieId");
+        record.setDate(LocalDateTime.now());
+        record.setActive(true);
+
+        List<EventRecord> eventFromBackend = new ArrayList<>();
+        eventFromBackend.add(record);
+
+
+        RSVPRecord rsvpRecord = new RSVPRecord();
+        rsvpRecord.setUserId(randomUUID().toString());
+        rsvpRecord.setEventId(eventId);
+        rsvpRecord.setIsAttending(true);
+
+        List<RSVPRecord> rsvpFromBackend = new ArrayList<>();
+        rsvpFromBackend.add(rsvpRecord);
+
+        // WHEN
+        when(eventRepository.findAll()).thenReturn(eventFromBackend);
+        List<EventRecord> event = eventService.findAll();
+
+        // THEN
+        Assertions.assertNotNull(event, "The object is returned");
+        Assertions.assertEquals(event.get(0).getEventId(), eventFromBackend.get(0).getEventId(), "The eventId value matches");
+        Assertions.assertEquals(event.get(0).getEventTitle(), eventFromBackend.get(0).getEventTitle(), "The eventTitle value matches");
+        Assertions.assertEquals(event.get(0).getMovieId(), eventFromBackend.get(0).getMovieId(), "The movieId value matches");
+        Assertions.assertEquals(event.get(0).getDate(), eventFromBackend.get(0).getDate(), "The date value matches");
+        Assertions.assertEquals(event.get(0).getActive(), eventFromBackend.get(0).getActive(), "The active value matches");
+    }
+    @Test
     void addNewEvent() {
         // GIVEN
         Event event = new Event("1", "title", "movieId", LocalDateTime.now(), true);

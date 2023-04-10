@@ -13,7 +13,7 @@ export default class RSVPClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getRSVP', 'getAllEventRSVPs', 'getAllUserRSVPs', 'getUser', 'getEvent', 'updateRSVP'];
+        const methodsToBind = ['clientLoaded', 'getEvent', 'getUser', 'getRSVP', 'updateRSVP'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,59 +31,43 @@ export default class RSVPClient extends BaseClass {
     }
 
     /**
-     * Gets the rsvp for the given ID.
-     * @param userId Unique identifier for users.
-     * @param eventId Unique identifier for events.
-     * Together these will be the primary key for the rsvp table.
+     * Gets the concert for the given ID.
+     * @param id Unique identifier for a concert
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The rsvp object.
+     * @returns The concert
      */
-    async getRSVP(userId, eventId, errorCallback) {
-        try {
-            const response = await this.client.get(`/rsvp/${userId}_${eventId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getRSVP", error, errorCallback)
-        }
-    }
-    async getAllEventRSVPs(eventId, errorCallback) {
-        try {
-            const response = await this.client.get(`/event/${eventId}`);
-            // const response = await this.client.get(`/rsvp/users/${eventId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getAllEventRSVPs", error, errorCallback)
-        }
-    }
-    async getAllUserRSVPs(userId, errorCallback) {
-        try {
-            const response = await this.client.get(`/rsvp/events/${userId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getAllUserRSVPs", error, errorCallback)
-        }
-    }
-    async getUser(userId, errorCallback) {
-        try {
-            const response = await this.client.get(`/user/${userId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getUser", error, errorCallback)
-        }
-    }
-    async getEvent(eventId, errorCallback) {
-        try {
-            const response = await this.client.get(`/event/${eventId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getEvent", error, errorCallback)
-        }
-    }
+
+     async getEvent(eventId, errorCallback) {
+         try {
+             const response = await this.client.get(`/event/${eventId}`);
+             return response.data;
+         } catch (error) {
+             this.handleError("getEvent", error, errorCallback)
+         }
+     }
+
+     async getUser(userId, errorCallback) {
+         try {
+             const response = await this.client.get(`/user/${userId}`);
+             return response.data;
+         } catch (error) {
+             this.handleError("getUser", error, errorCallback)
+         }
+     }
+
+     async getRSVP(userId, eventId, errorCallback) {
+         try {
+             const response = await this.client.get(`/rsvp/${userId}_${eventId}`);
+             return response.data;
+         } catch (error) {
+             this.handleError("getRSVP", error, errorCallback)
+         }
+     }
 
     async updateRSVP(userId, eventId, isAttending, errorCallback) {
         try {
             const response = await this.client.put(`/rsvp`, {
-               userId: userId,
+                userId: userId,
                 eventId: eventId,
                 isAttending: isAttending
             });

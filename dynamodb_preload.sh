@@ -145,7 +145,7 @@ aws dynamodb put-item \
 --item '{
   "userId": {"S": "9a6775b9-35c8-4bde-9165-1854a69c624c"},
   "eventId": {"S": "277f7b73-bdbe-4944-a13c-15e820b69977"},
-  "isAttending": {"BOOL": false}
+  "isAttending": {"BOOL": true}
 }'
 aws dynamodb put-item \
 --endpoint-url http://localhost:8000 \
@@ -161,7 +161,7 @@ aws dynamodb put-item \
 --item '{
   "userId": {"S": "9a6775b9-35c8-4bde-9165-1854a69c624c"},
   "eventId": {"S": "9a4142f2-ade1-4a12-92a7-e18190f0140c"},
-  "isAttending": {"BOOL": false}
+  "isAttending": {"BOOL": true}
 }'
 aws dynamodb put-item \
 --endpoint-url http://localhost:8000 \

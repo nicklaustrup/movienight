@@ -2,9 +2,10 @@
 <html lang="en-US">
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
 <head>
-    <script type="text/javascript" src="rsvpPage.js"></script>
+    <script type="text/javascript" src="RSVPPage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <base href="/" />
 </head>
 <body class="background">
 <header class="header" id="header">
@@ -12,48 +13,41 @@
         <a class="header_home" href="index.html">Movie Night</a>
     </div>
 </header>
-        <table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
-            <tbody>
-            <tr>
-                <td style="text-align: center;"><a href="rsvp.html">RSVP</a></td>
-                <td style="text-align: center;"><a href="updatersvp.html">UPDATE RSVP</a></td>
-                <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
-                <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
-                <td style="text-align: center;"><a href="movies.html">MOVIES</a></td>
-                <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
-                <td style="text-align: center;"><a href="users.html">USERS</a></td>
-                <td style="text-align: right;"><a href="index.html" id="login"></a></td>
-            </tr>
-            </tbody>
-        </table>
-<div class="card">
-    <h2>Get All RSVPs for User</h2>
-    <form class="card-content" id="get-rsvp-by-userId-form">
+<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
+    <tbody id="menu">
+    </tbody>
+</table>
+<div class="card" id="events">
+    <h2>RSVP Update</h2>
+    <form class="card-content" id="update-form">
         <p class="form-field">
-            <label for="get-all-rsvp-by-userId-field">Enter User Id</label>
-            <input type="text" required class="validated-field" id="get-all-rsvp-by-userId-field">
+            <input type="hidden" required class="validated-field" id="userId">
         </p>
-        <button type="submit">Get</button>
-    </form>
-</div>
-<div class="card">
-    <h2>RSVPs for Event</h2>
-    <form class="card-content" id="get-rsvp-by-eventId-form">
         <p class="form-field">
-            <label for="get-all-rsvp-by-eventId-field">Enter Event Id</label>
-            <input type="text" required class="validated-field" id="get-all-rsvp-by-eventId-field">
+            <input type="hidden" required class="validated-field" id="eventId">
         </p>
-        <button type="submit">Get</button>
+        <p class="form-field" id="eventTitle"></p>
+        <p class="form-field" id="movieTitle"></p>
+        <p class="form-field" id="movieDescription"></p>
+        <p class="form-field" id="date"></p>
+        <p class="form-field" id="active"></p>
+        <p class="form-field" id="isAttending">Attending?</p>
+        <input type="radio" name="active_round" id="active_round_yes">Yes</input>
+        <input type="radio" name="active_round" id="active_round_no">No</input>
+        <br>
+        <button type="submit">Update</button>
     </form>
+    <p>RSVP List</p>
+    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Attending?</th>
+        </tr>
+        </thead>
+        <tbody id="RSVP">
+        </tbody>
+    </table>
 </div>
-<div class="card" id="view-rsvp">
-    <h2>Details</h2>
-    <p id="view-rsvp-details"></p>
-        <button id= "update-rsvp-button" type="submit">Go to Update RSVP Page</button>
-</div>
-<div class="card" id="rsvp-display-area">
-    <h2>Event Details</h2>
-</div>
-
 </body>
 </html>
