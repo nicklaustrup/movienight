@@ -9,7 +9,7 @@ class EventAllPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getAllEvents', 'getUser', 'renderEvents', 'renderLogin'], this);
+        this.bindClassMethods(['getAllEvents', 'getUser', 'renderEvents', 'renderLogin', 'renderMenu'], this);
         this.dataStore = new DataStore();
     }
 
@@ -21,6 +21,7 @@ class EventAllPage extends BaseClass {
         this.getAllEvents();
         var userId = window.localStorage.getItem('userId'); //searches for the userId in localStorage
         this.getUser(userId);
+        this.dataStore.addChangeListener(this.renderMenu);
         this.dataStore.addChangeListener(this.renderEvents);
         this.dataStore.addChangeListener(this.renderLogin)
     }
@@ -64,6 +65,32 @@ class EventAllPage extends BaseClass {
             resultArea.innerHTML = userHTML;
         } else {
             resultArea.innerHTML = "No User";
+        }
+    }
+
+    async renderMenu() {
+        var userId = window.localStorage.getItem('userId');
+        if (userId === "01677f59-d4a7-4fbc-9455-f2ef80c06839") {
+            document.getElementById("menu").innerHTML = `
+                <tr>
+                    <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
+                    <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
+                    <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
+                    <td style="text-align: center;"><a href="moviecreate.html">CREATE MOVIE</a></td>
+                    <td style="text-align: center;"><a href="movies.html">MOVIES</a></td>
+                    <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
+                    <td style="text-align: center;"><a href="users.html">USERS</a></td>
+                    <td style="text-align: right;"><a href="index.html" id="login"></a></td>
+                </tr>
+            `;
+        }
+        else {
+            document.getElementById("menu").innerHTML = `
+                <tr>
+                    <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
+                    <td style="text-align: right;"><a href="index.html" id="login"></a></td>
+                </tr>
+            `;
         }
     }
 
