@@ -3,6 +3,7 @@ package com.kenzie.appserver.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.kenzie.appserver.IntegrationTest;
+
 import com.kenzie.appserver.controller.model.UserCreateRequest;
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.User;
@@ -29,7 +30,6 @@ class UserControllerTest {
 
     @Autowired
     UserService userService;
-
 
     private final MockNeat mockNeat = MockNeat.threadLocal();
 
