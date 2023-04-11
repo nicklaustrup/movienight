@@ -13,7 +13,6 @@ import com.kenzie.appserver.service.RSVPService;
 import com.kenzie.appserver.service.model.Event;
 import com.kenzie.appserver.service.model.Movie;
 import com.kenzie.appserver.service.model.RSVP;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
