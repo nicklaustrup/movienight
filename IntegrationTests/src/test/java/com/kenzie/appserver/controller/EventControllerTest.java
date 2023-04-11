@@ -438,7 +438,7 @@ public class EventControllerTest {
                         .value(is(firstName)))
                 .andExpect(jsonPath("users[0].lastName")
                         .value(is(lastName)));
-                .andExpect(status().isCreated());
+      
 
     }
 
