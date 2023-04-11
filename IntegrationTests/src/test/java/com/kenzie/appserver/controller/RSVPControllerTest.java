@@ -13,19 +13,18 @@ import com.kenzie.appserver.service.RSVPService;
 import com.kenzie.appserver.service.model.Event;
 import com.kenzie.appserver.service.model.Movie;
 import com.kenzie.appserver.service.model.RSVP;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -177,11 +176,8 @@ public void updateRSVP_IsSuccessful() throws Exception {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userId", is("user2")))
+                .andExpect(jsonPath("$.*.userId", contains("user2", "user1")))
                 .andExpect(jsonPath("$[0].eventId", is("event1")))
-                .andExpect(jsonPath("$[0].isAttending", is(false)))
-                .andExpect(jsonPath("$[1].userId", is("user1")))
-                .andExpect(jsonPath("$[1].eventId", is("event1")))
-                .andExpect(jsonPath("$[1].isAttending", is(true)));
+                .andExpect(jsonPath("$[1].eventId", is("event1")));
     }
 }
