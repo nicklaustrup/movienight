@@ -333,6 +333,4 @@ public class EventControllerTest {
                 .andExpect(jsonPath("active")
                         .value(is(false)));
     }
-
-
 }
