@@ -3,15 +3,10 @@ package com.kenzie.appserver.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.kenzie.appserver.IntegrationTest;
-<<<<<<< HEAD
-=======
-import com.kenzie.appserver.controller.model.ExampleCreateRequest;
+
 import com.kenzie.appserver.controller.model.UserCreateRequest;
-import com.kenzie.appserver.service.ExampleService;
 import com.kenzie.appserver.service.UserService;
-import com.kenzie.appserver.service.model.Example;
 import com.kenzie.appserver.service.model.User;
->>>>>>> e6d10b8 (Added Integration tests for Movie, RSVP and User Controller classes)
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerTest {
     @Autowired
     private MockMvc mvc;
+
 
     @Autowired
     UserService userService;
