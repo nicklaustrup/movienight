@@ -178,9 +178,9 @@ public void updateRSVP_IsSuccessful() throws Exception {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].userId", is("user1")))
                 .andExpect(jsonPath("$[0].eventId", is("event1")))
-                .andExpect(jsonPath("$[0].isAttending", is("true")))
+                .andExpect(jsonPath("$[0].isAttending", is(true)))
                 .andExpect(jsonPath("$[1].userId", is("user2")))
                 .andExpect(jsonPath("$[1].eventId", is("event1")))
-                .andExpect(jsonPath("$[1].isAttending", is("false")));
+                .andExpect(jsonPath("$[1].isAttending", is(false)));
     }
 }
