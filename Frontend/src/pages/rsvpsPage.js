@@ -81,40 +81,29 @@ class RSVPAllPage extends BaseClass {
     }
 
     async renderMenu() {
-        var userId = window.localStorage.getItem('userId');
-        if (userId === "01677f59-d4a7-4fbc-9455-f2ef80c06839") {
-            document.getElementById("menu").innerHTML = `
+        document.getElementById("menu").innerHTML = `
+                  <ul>
+                    <li><a href="rsvps.html">RSVP</a></li>
+                    <li><a href="events.html">Event +</a>
+                      <!-- First Tier Drop Down -->
                       <ul>
-                        <li><a href="rsvps.html">RSVP</a></li>
-                        <li><a href="events.html">Event +</a>
-                          <!-- First Tier Drop Down -->
-                          <ul>
-                            <li><a href="eventcreate.html">Create Event</a></li>
-                          </ul>
-                        </li>
-                        <li><a href="movies.html">Movie +</a>
-                          <ul>
-                            <li><a href="moviecreate.html">Create Movie</a></li>
-                          </ul>
-                        </li>
-                        <li><a href="users.html">User +</a>
-                          <!-- First Tier Drop Down -->
-                          <ul>
-                            <li><a href="usercreate.html">Create User</a></li>
-                          </ul>
-                        </li>
-                        <li><a href="index.html" id="login"></a></li>
+                        <li><a href="eventcreate.html">Create Event</a></li>
                       </ul>
-            `;
-        }
-        else {
-            document.getElementById("menu").innerHTML = `
+                    </li>
+                    <li><a href="movies.html">Movie +</a>
                       <ul>
-                        <li><a href="rsvps.html">RSVP</a></li>
-                        <li><a href="index.html" id="login"></a></li>
+                        <li><a href="moviecreate.html">Create Movie</a></li>
                       </ul>
-            `;
-        }
+                    </li>
+                    <li><a href="users.html">User +</a>
+                      <!-- First Tier Drop Down -->
+                      <ul>
+                        <li><a href="usercreate.html">Create User</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="index.html" id="login"></a></li>
+                  </ul>
+        `;
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
