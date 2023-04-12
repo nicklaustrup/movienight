@@ -7,27 +7,15 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body class="background">
-<header class="header" id="header">
-    <div class="site-title">
-        <a class="header_home" href="index.html">Movie Night</a>
-    </div>
-</header>
-<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
-    <tbody id="menu">
-    </tbody>
-</table>
+<div class="logo"><img src="css/logo.png"alt="Movie Night" height="100px"/></div>
+<nav id="menu">
+</nav>
 <div class="card">
     <h2>Create Movie</h2>
     <form class="card-content" id="create-movie-form">
-        <p class="form-field">
-            <label for="create-title-field">Title</label>
-            <input type="text" required class="validated-field" id="create-title-field">
-        </p>
-        <p class="form-field">
-            <label for="create-description-field">Description</label>
-            <input type="text" required class="validated-field" id="create-description-field">
-        </p>
-        <button type="submit">Create</button>
+        <p class="form-field"><label for="create-title-field">Title:</label><input type="text" required class="validated-field" id="create-title-field"></p>
+        <p class="form-field"><label for="create-description-field">Description:</label><textarea rows="6" required class="validated-field" id="create-description-field"></textarea></p>
+        <button class="button-12" type="submit">Create</button>
     </form>
 </div>
 </body>

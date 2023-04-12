@@ -6,7 +6,7 @@
 }
 
 .background {
-    background-color: #eaeded;
+    background-color: #ffffff;
     margin: 0;
     counter-reset: section;
 }
@@ -39,20 +39,6 @@
     margin-left: 20px;
 }
 
-.button, button {
-    background: #aed9ff;
-    padding: 3px;
-    border-radius: 3px;
-    text-decoration: none;
-    color: black;
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-.button:hover, button:hover {
-    background: #9cc3e4;
-}
-
 .card {
     color: var(--primary-color);
     background-color: var(--secondary-color);
@@ -74,6 +60,8 @@
 .card-content .form-field {
     display: flex;
     flex-direction: column;
+	font-size:12px;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 #concert-list li {
@@ -101,11 +89,133 @@
     border: 1px solid black;
 }
 
-td {
-    padding: 5px;
-    text-align: center;
-    border: 1px solid black;
+/* Button Styling */
+
+.button-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  border-radius: 6px;
+  border: none;
+
+  background: #fef2e3;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #000000;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
+.button-12:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
 
+/* Table Results Styling */
+#results {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#results td, #results th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#results tr:nth-child(even){background-color: #f2f2f2;}
+
+#results tr:hover {background-color: #ddd;}
+
+#results th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #fd8d38;
+  color: white;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.radio-input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:12px;
+}
+
+.logo {
+    text-align: left;
+    background-color: #fd8d38;
+    height: 100px;
+    border: none;
+}
+
+/* Menu Styling */
+
+nav {
+	margin: 0px 0;
+	background-color: #fcc494;
+}
+
+nav ul {
+	padding: 0;
+    margin: 0;
+	list-style: none;
+	position: relative;
+	}
+
+nav ul li {
+	display:inline-block;
+	background-color: #fcc494;
+	}
+
+nav a {
+	display:block;
+	padding:0 10px;
+	color:#FFF;
+	font-size:12px;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 45px;
+	text-decoration:none;
+}
+
+nav a:hover {
+	background-color: #fd8f3b;
+}
+
+/* Hide Dropdowns by Default */
+nav ul ul {
+	display: none;
+	position: absolute;
+	top: 45px; /* the height of the main nav */
+}
+
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+	display:inherit;
+}
+
+/* Fisrt Tier Dropdown */
+nav ul ul li {
+	width:100px;
+	float:none;
+	display:list-item;
+	position: relative;
+}
+
+/* Second, Third and more Tiers	*/
+nav ul ul ul li {
+	position: relative;
+	top:-60px;
+	left:170px;
+}
 

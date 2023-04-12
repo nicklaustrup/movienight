@@ -41,19 +41,19 @@ class RSVPAllPage extends BaseClass {
                     <td>${rsvp.eventTitle}</td>
                     <td>${rsvp.title}</td>`;
                 if (rsvp.active) {
-                    rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#fd8d38;"><strong>Yes</strong></span></em></td>`;
                     }
                 else {
-                    rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#000000;"><strong>No</strong></span></em></td>`;
                 };
                 if (rsvp.isAttending) {
-                    rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#fd8d38;"><strong>Yes</strong></span></em></td>`;
                     }
                 else {
-                    rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#000000;"><strong>No</strong></span></em></td>`;
                 };
                 if (rsvp.active) {
-                    rvspHTML +=`<td><input type="button" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
+                    rvspHTML +=`<td><input type="button" class="button-12" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
                     </tr>`;
                     }
                 else {
@@ -84,24 +84,35 @@ class RSVPAllPage extends BaseClass {
         var userId = window.localStorage.getItem('userId');
         if (userId === "01677f59-d4a7-4fbc-9455-f2ef80c06839") {
             document.getElementById("menu").innerHTML = `
-                <tr>
-                    <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
-                    <td style="text-align: center;"><a href="eventcreate.html">CREATE EVENT</a></td>
-                    <td style="text-align: center;"><a href="events.html">EVENTS</a></td>
-                    <td style="text-align: center;"><a href="moviecreate.html">CREATE MOVIE</a></td>
-                    <td style="text-align: center;"><a href="movies.html">MOVIES</a></td>
-                    <td style="text-align: center;"><a href="usercreate.html">CREATE USER</a></td>
-                    <td style="text-align: center;"><a href="users.html">USERS</a></td>
-                    <td style="text-align: right;"><a href="index.html" id="login"></a></td>
-                </tr>
+                      <ul>
+                        <li><a href="rsvps.html">RSVP</a></li>
+                        <li><a href="events.html">Event +</a>
+                          <!-- First Tier Drop Down -->
+                          <ul>
+                            <li><a href="eventcreate.html">Create Event</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="movies.html">Movie +</a>
+                          <ul>
+                            <li><a href="moviecreate.html">Create Movie</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="users.html">User +</a>
+                          <!-- First Tier Drop Down -->
+                          <ul>
+                            <li><a href="usercreate.html">Create User</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="index.html" id="login"></a></li>
+                      </ul>
             `;
         }
         else {
             document.getElementById("menu").innerHTML = `
-                <tr>
-                    <td style="text-align: center;"><a href="rsvps.html">RSVP</a></td>
-                    <td style="text-align: right;"><a href="index.html" id="login"></a></td>
-                </tr>
+                      <ul>
+                        <li><a href="rsvps.html">RSVP</a></li>
+                        <li><a href="index.html" id="login"></a></li>
+                      </ul>
             `;
         }
     }
