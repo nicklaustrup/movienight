@@ -41,19 +41,19 @@ class RSVPAllPage extends BaseClass {
                     <td>${rsvp.eventTitle}</td>
                     <td>${rsvp.title}</td>`;
                 if (rsvp.active) {
-                    rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#fd8d38;"><strong>Yes</strong></span></em></td>`;
                     }
                 else {
-                    rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#000000;"><strong>No</strong></span></em></td>`;
                 };
                 if (rsvp.isAttending) {
-                    rvspHTML += `<td><em><span style="color:#00FF00;"><strong>Yes</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#fd8d38;"><strong>Yes</strong></span></em></td>`;
                     }
                 else {
-                    rvspHTML += `<td><em><span style="color:#FF0000;"><strong>No</strong></span></em></td>`;
+                    rvspHTML += `<td><em><span style="color:#000000;"><strong>No</strong></span></em></td>`;
                 };
                 if (rsvp.active) {
-                    rvspHTML +=`<td><input type="button" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
+                    rvspHTML +=`<td><input type="button" class="button-12" onclick="store_redirect('${rsvp.eventId}')" value="Update" /></td>
                     </tr>`;
                     }
                 else {
