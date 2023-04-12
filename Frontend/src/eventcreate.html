@@ -8,33 +8,17 @@
   <base href="/" />
 </head>
 <body class="background">
-<header class="header" id="header">
-  <div class="site-title">
-    <a class="header_home" href="index.html">Movie Night</a>
-  </div>
-</header>
-<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
-  <tbody id="menu">
-  </tbody>
-</table>
+<div class="logo"><img src="css/logo.png"alt="Movie Night" height="100px"/></div>
+<nav id="menu">
+</nav>
 <div class="card" id="events">
   <h2>Create Event</h2>
   <form class="card-content" id="create-form">
-    <p class="form-field">
-      <label for="eventTitle">Title</label>
-      <input type="text" required class="validated-field" id="eventTitle">
-    </p>
-    <p class="form-field">
-      <label for="movie">Movie</label>
-      <select id="movie">
-      </select>
-    </p>
-    <p class="form-field">
-      <label for="date">Date</label>
-      <input type="datetime-local" required class="validated-field" id="date">
-    </p>
-    <p>RSVP List</p>
-    <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
+    <p class="form-field"><label for="eventTitle">Title:</label><input type="text" required class="validated-field" id="eventTitle"></p>
+    <p class="form-field"><label for="movie">Movie:</label><select id="movie"></select></p>
+    <p class="form-field"><label for="date">Date:</label><input type="datetime-local" required class="validated-field" id="date"></p>
+    <h3>RSVP List</h3>
+    <table id="results" border="1" cellpadding="1" cellspacing="1" style="width:200px;">
       <thead>
       <tr>
         <th scope="col">Name</th>
@@ -45,7 +29,7 @@
       </tbody>
     </table>
     <br>
-    <button type="submit">Create</button>
+    <button class="button-12" type="submit">Create</button>
   </form>
 </div>
 </body>

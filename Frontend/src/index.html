@@ -7,19 +7,19 @@
     <base href="/" />
 </head>
 <body class="background">
-<header class="header" id="header">
-    <div class="site-title">
-        <a class="header_home" href="index.html">Movie Night</a>
-    </div>
-</header>
+<div class="logo"><img src="css/logo.png"alt="Movie Night" height="100px"/></div>
 <div class="card" id="login">
-    <h2>Login:</h2>
-    <label for="userId" >User ID: </label>
-    <input type="text" id="userId" placeholder="User ID" required autofocus><br>
-    <label for="password" >Password: </label>
-    <input type="password" id="password" placeholder="Password" required><br>
-    <button id="storeUsername" onclick="store_redirect()">Sign In</button>
-    <script>
+    <h2>Login</h2>
+        <p class="form-field">
+            <label for="userId" >User ID: </label>
+            <input type="text" id="userId" placeholder="User ID" required autofocus><br>
+        </p>
+        <p class="form-field">
+            <label for="password" >Password: </label>
+            <input type="password" id="password" placeholder="Password" required><br>
+        </p>
+        <button id="storeUsername" onclick="store_redirect()">Log In</button>
+<script>
 function store_redirect(){ //stores items in the localStorage
     var username = document.getElementById('userId').value;
     localStorage.clear();
