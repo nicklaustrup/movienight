@@ -1,10 +1,13 @@
 package com.kenzie.appserver.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.MovieCreateRequest;
+import com.kenzie.appserver.controller.model.MovieResponse;
 import com.kenzie.appserver.controller.model.RSVPCreateRequest;
+import com.kenzie.appserver.controller.model.RSVPResponse;
 import com.kenzie.appserver.repositories.RSVPRepository;
 import com.kenzie.appserver.repositories.model.RSVPRecord;
 import com.kenzie.appserver.repositories.model.UserRecord;
@@ -18,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.Instant;
@@ -25,6 +30,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -172,15 +178,30 @@ public void updateRSVP_IsSuccessful() throws Exception {
        // RSVP persistedRSVP = rsvpService.addNewRSVP(rsvp);
 
         String eventId = "event1";
-        mvc.perform(get("/rsvp/users/{eventId}", eventId))
+        ResultActions rsvpsResultAction = mvc.perform(get("/rsvp/users/{eventId}", eventId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userId", is("user1")))
-                .andExpect(jsonPath("$[0].eventId", is("event1")))
-                .andExpect(jsonPath("$[0].isAttending", is(true)))
-                .andExpect(jsonPath("$[1].userId", is("user2")))
-                .andExpect(jsonPath("$[1].eventId", is("event1")))
-                .andExpect(jsonPath("$[1].isAttending", is(false)));
+                .andExpect(jsonPath("$", hasSize(2)));
+
+        MvcResult rsvpsResult = rsvpsResultAction.andReturn();
+        String rsvpsContentAsString = rsvpsResult.getResponse().getContentAsString();
+        List<RSVPResponse> rsvpsResponse = mapper.readValue(rsvpsContentAsString, new TypeReference<List<RSVPResponse>>(){});
+        if (rsvpsResponse.get(0).getUserId().equals(rsvpRecord1.getUserId())) {
+            assertEquals(rsvpsResponse.get(0).getUserId(), rsvpRecord1.getUserId(), "The userId matches for Record 1");
+            assertEquals(rsvpsResponse.get(0).getEventId(), rsvpRecord1.getEventId(), "The eventId matches for Record 1");
+            assertEquals(rsvpsResponse.get(0).getIsAttending(), rsvpRecord1.getIsAttending(), "The isAttending matches for Record 1");
+            assertEquals(rsvpsResponse.get(1).getUserId(), rsvpRecord2.getUserId(), "The userId matches for Record 2");
+            assertEquals(rsvpsResponse.get(1).getEventId(), rsvpRecord2.getEventId(), "The eventId matches for Record 2");
+            assertEquals(rsvpsResponse.get(1).getIsAttending(), rsvpRecord2.getIsAttending(), "The isAttending matches for Record 2");
+        }
+        else {
+            assertEquals(rsvpsResponse.get(0).getUserId(), rsvpRecord2.getUserId(), "The userId matches for Record 2");
+            assertEquals(rsvpsResponse.get(0).getEventId(), rsvpRecord2.getEventId(), "The eventId matches for Record 2");
+            assertEquals(rsvpsResponse.get(0).getIsAttending(), rsvpRecord2.getIsAttending(), "The isAttending matches for Record 2");
+            assertEquals(rsvpsResponse.get(1).getUserId(), rsvpRecord1.getUserId(), "The userId matches for Record 1");
+            assertEquals(rsvpsResponse.get(1).getEventId(), rsvpRecord1.getEventId(), "The eventId matches for Record 1");
+            assertEquals(rsvpsResponse.get(1).getIsAttending(), rsvpRecord1.getIsAttending(), "The isAttending matches for Record 1");
+
+        }
     }
 }
