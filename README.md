@@ -1,6 +1,5 @@
-# ATA-Learn-And-Be-Curious-Project
+# Movie Night Capstone Project
 
-Follow the instructions in the course for completing the group LBC project.
 
 ## Preview
 
