@@ -4,7 +4,7 @@ Follow the instructions in the course for completing the group LBC project.
 
 ## Preview
 
-![Site preview](https://github.com/nicklaustrup/movienight/main/image.png?raw=true)
+![Site preview](https://github.com/nicklaustrup/movienight/blob/main/image.png?raw=true)
 
 
 
