@@ -6,7 +6,7 @@ Follow the instructions in the course for completing the group LBC project.
 
 ![Site preview](https://github.com/nicklaustrup/movienight/blob/main/image.png?raw=true)
 
-
+![Site preview](https://github.com/nicklaustrup/movienight/blob/main/Update-RSVP-gif.gif?raw=true)
 
 ## Steps for developing/working locally
 
