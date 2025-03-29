@@ -21,7 +21,7 @@ export default class EventClient extends BaseClass {
 
     /**
      * Run any functions that are supposed to be called once the client has loaded successfully.
-     * @param client The client that has been successfully loaded.
+     * @param client The client that has been successfully loaded.123
      */
     clientLoaded(client) {
         this.client = client;
